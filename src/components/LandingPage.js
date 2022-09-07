@@ -21,7 +21,7 @@ const LandingPage = () => {
 	return (
 		<>
 			<h2>Hello World!</h2>
-			<Button text='Pelaa' handleClick={() => setView('Game')}/>
+			<Button style='button_normal' text='Pelaa' handleClick={() => setView('Game')}/>
 		</>
 	)
 }

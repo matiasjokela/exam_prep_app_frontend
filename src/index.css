@@ -1,0 +1,62 @@
+html {
+	background-color: #2A2922;
+	font-weight: bold;
+	color: #F3EBDD;
+	/*font-family: arial;*/
+	margin: auto;
+	width: 50 %;
+	padding: 30px;
+}
+
+.correct {
+	color: #265C00;
+	background: #F3EBDD;
+	font-size: 20px;
+	border-style: solid;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.incorrect {
+	color: #CB0000;
+	background: #F3EBDD;
+	font-size: 20px;
+	border-style: solid;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.button_normal {
+	color: #2A2922;
+	font-weight: bold;
+	background: #F3EBDD;
+	padding: 5px;
+	width: 250px;
+}
+
+.button_selected {
+	color: #2A2922;
+	font-weight: bold;
+	background: #FFBB00;
+	padding: 5px;
+	width: 250px;
+}
+
+.button_right {
+	color: #2A2922;
+	font-weight: bold;
+	background: #265C00;
+	padding: 5px;
+	width: 250px;
+}
+
+.button_wrong {
+	color: #2A2922;
+	font-weight: bold;
+	background: #CB0000;
+	padding: 5px;
+	width: 250px;
+}
+

@@ -6,7 +6,7 @@ import LandingPage from "./components/LandingPage"
 const App = () => {
 	// login in tai landing page renderöidään jollain logiikalla
 	return (
-		<div>
+		<div  className='center'>
 			<LandingPage />
 		</div>
 	)

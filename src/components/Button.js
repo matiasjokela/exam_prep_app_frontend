@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 
 // style ja type pitää ottaa argumentteina? 
 
-const Button = ({ handleClick, text }) => (
-	<button onClick={handleClick}>
+const Button = ({ handleClick, text, style }) => (
+	<button onClick={handleClick} className={style}>
 		{text}
 	</button>
 )
