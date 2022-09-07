@@ -1,9 +1,12 @@
+import LoginPage from "./components/LoginPage"
+import LandingPage from "./components/LandingPage"
+import GamePage from "./components/GamePage"
 
 
 const App = () => {
 	return (
 		<div>
-			<h2>Hello World!</h2>
+			<GamePage />
 		</div>
 	)
 }
