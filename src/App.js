@@ -1,12 +1,13 @@
 import LoginPage from "./components/LoginPage"
 import LandingPage from "./components/LandingPage"
-import GamePage from "./components/GamePage"
+
 
 
 const App = () => {
+	// login in tai landing page renderöidään jollain logiikalla
 	return (
 		<div>
-			<GamePage />
+			<LandingPage />
 		</div>
 	)
 }
