@@ -4,8 +4,6 @@ html {
 	color: #F3EBDD;
 	/*font-family: arial;*/
 	margin: auto;
-	width: 50 %;
-	padding: 30px;
 }
 
 .correct {
@@ -16,6 +14,10 @@ html {
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
+}
+
+.centered {
+	text-align: center;
 }
 
 .incorrect {

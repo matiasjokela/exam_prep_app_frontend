@@ -1,14 +1,10 @@
-import Button from './Button'
+import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react'
 import ScorePage from './ScorePage'
 
-const Notification = ({ message, style }) => {
-	return (
-		<div className={style}>
-			{message}
-		</div>
-	)
-}
+
 
 // Mikä paras tapa näyttää valittu nappi keltaisena jne???
 
@@ -19,14 +15,14 @@ const GamePage = ({ questions }) => {
 	const [answer, setAnswer] = useState(null)
 	const [message, setMessage] = useState(null)
 	const [messageStyle, setMessageStyle] = useState('')
-	const [buttonStyle, setButtonStyle] = useState('button_normal')
+	const [buttonStyle, setButtonStyle] = useState('warning')
 
 	// Tarviiko käyttää statea näihin kaikkiin vai normi muuttujia??
 	
 	const checkAnswer = () => {
 		if (answer === questions[index].answer) {
 			setCorrect(correct + 1)
-			setMessageStyle('correct')
+			setMessageStyle('success')
 			setMessage('Oikea vastaus!')
 			setTimeout(() => {
 				setMessage(null)
@@ -34,7 +30,7 @@ const GamePage = ({ questions }) => {
 				setIndex(index + 1)
 			}, 3000)
 		} else {
-			setMessageStyle('incorrect')
+			setMessageStyle('danger')
 			setMessage(`Väärin meni, oikea vastaus ${questions[index].answer}`)
 			setTimeout(() => {
 				setMessage(null)
@@ -52,25 +48,27 @@ const GamePage = ({ questions }) => {
 		)
 	}
 	return (
-		<>
-			<Notification style={messageStyle} message={message}/>
+		<div className='text-center'>
+			<Alert variant={messageStyle}>
+				{message}
+			</Alert>
 			<h2>{questions[index].question}</h2>
 			<div>
-				A: <Button style='button_normal' text={questions[index].option_a} handleClick={() => setAnswer(questions[index].option_a)}/>
+				<ButtonGroup className='me-6'>
+					<Button className='btn-lg' variant={buttonStyle} onClick={() => setAnswer(questions[index].option_a)}>{questions[index].option_a}</Button>
+					<Button variant="primary" onClick={() => setAnswer(questions[index].option_b)}>{questions[index].option_b}</Button>
+				</ButtonGroup>
 			</div>
 			<div>
-				B: <Button style='button_right' text={questions[index].option_b} handleClick={() => setAnswer(questions[index].option_b)}/>
+				<ButtonGroup className='btn-group btn-group-justified' >
+					<Button variant="primary" onClick={() => setAnswer(questions[index].option_c)}>{questions[index].option_c}</Button>
+					<Button variant="primary" onClick={() => setAnswer(questions[index].option_d)}>{questions[index].option_d}</Button>
+				</ButtonGroup>
 			</div>
 			<div>
-				C: <Button style='button_wrong' text={questions[index].option_c} handleClick={() => setAnswer(questions[index].option_c)}/>
+				<Button variant='primary' onClick={checkAnswer}>Lähetä vastaus</Button>
 			</div>
-			<div>
-				D: <Button style='button_selected' text={questions[index].option_d} handleClick={() => setAnswer(questions[index].option_d)}/>
-			</div>
-			<div>
-				<Button style='button_normal' text='Lähetä vastaus' handleClick={checkAnswer}/>
-			</div>
-		</>
+		</div>
 	)
 }
 

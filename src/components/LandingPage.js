@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import Button from './Button'
+import Button from 'react-bootstrap/Button'
 import ButtonList from './ButtonList'
+import Container from 'react-bootstrap/Container'
 import GamePage from "./GamePage"
 import questionService from '../services/questions'
 
@@ -19,11 +20,13 @@ const LandingPage = () => {
 	}
 
 	return (
-		<>
-			<h2>Hello World!</h2>
-			<Button style='button_normal' text='Pelaa' handleClick={() => setView('Game')}/>
-		</>
+			<div className='text-center bg-light'>
+				<h2>Hello World!</h2>
+				<Button variant="warning" active onClick={() => setView('Game')}>Pelaa</Button>
+			</div>
 	)
 }
 
 export default LandingPage
+
+//<Button style='button_normal' text='Pelaa' handleClick={() => setView('Game')}/>

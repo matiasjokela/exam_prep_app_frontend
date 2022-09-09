@@ -1,5 +1,5 @@
 import LandingPage from './LandingPage'
-import Button from './Button'
+import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 
 const ScorePage = ({ correct, total }) => {
@@ -12,11 +12,11 @@ const ScorePage = ({ correct, total }) => {
 	}
 
 	return (
-		<>
+		<div className='text-center'>
 			<h2>Hello World!</h2>
 			<div>Sait {correct} / {total} oikein</div>
-			<Button text='OK' handleClick={() => setOk(1)}/>
-		</>
+			<Button variant='primary' onClick={() => setOk(1)}>OK</Button>
+		</div>
 	)
 }
 
