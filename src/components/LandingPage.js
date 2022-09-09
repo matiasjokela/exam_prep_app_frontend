@@ -4,6 +4,7 @@ import ButtonList from './ButtonList'
 import Container from 'react-bootstrap/Container'
 import GamePage from "./GamePage"
 import questionService from '../services/questions'
+import Card from 'react-bootstrap/Card'
 
 const LandingPage = () => {
 	const [questions, setQuestions] = useState([])
@@ -20,10 +21,13 @@ const LandingPage = () => {
 	}
 
 	return (
-			<div className='text-center bg-light'>
+		<Card className='mx-auto' style={{ width: '18rem' }}>
+			<div className='text-center d-grid gap-2'>
 				<h2>Hello World!</h2>
-				<Button variant="warning" active onClick={() => setView('Game')}>Pelaa</Button>
+				<Button className='btn-lg' variant="warning" active onClick={() => setView('Game')}>Pelaa</Button>
 			</div>
+		</Card>
+
 	)
 }
 
