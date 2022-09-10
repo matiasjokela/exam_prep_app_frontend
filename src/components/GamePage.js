@@ -1,19 +1,14 @@
 //import Button from 'react-bootstrap/Button'
 //import Card from 'react-bootstrap/Card'
 import Button from './Button'
+import Notification from './Notification'
 import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react'
 import ScorePage from './ScorePage'
 
 
 // Mikä paras tapa näyttää valittu nappi keltaisena jne???
-const Notification = ({ message, style }) => {
-	return (
-		<div className={style}>
-			{message}
-		</div>
-	)
-}
+
 
 const GamePage = ({ questions }) => {
 	const defaultStyle = 'button_normal'

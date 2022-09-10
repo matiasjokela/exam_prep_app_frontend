@@ -3,6 +3,7 @@ import Button from './Button'
 import ButtonList from './ButtonList'
 import GamePage from "./GamePage"
 import questionService from '../services/questions'
+import LoginPage from './LoginPage'
 
 
 const LandingPage = () => {
@@ -17,12 +18,23 @@ const LandingPage = () => {
 		return (
 			<GamePage questions={questions}/>
 		)
+	} else if (view === 'Login') {
+		return (
+			<LoginPage />
+		)
+	}
+
+	const handleLogout = () => {
+		console.log('click')
+		window.localStorage.removeItem('loggedExamPrepUser')
+		setView('Login')
 	}
 
 	return (
 		<div className='card_view'>
+			<Button text='kirjaudu ulos' style='button_normal' handleClick={handleLogout}/>
 			<h2>Hello World!</h2>
-			<Button text='Pelaa' style='button_normal' active handleClick={() => setView('Game')} />
+			<Button text='Pelaa' style='button_normal' handleClick={() => setView('Game')} />
 		</div>
 	)
 }
