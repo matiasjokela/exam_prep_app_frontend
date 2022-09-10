@@ -74,6 +74,24 @@ html {
 	margin-top: 5px;
 }
 
+.category_button_normal {
+	color: #F3EBDD;
+	font-weight: bold;
+	background: #2A2922;
+	padding: 5px;
+	width: 125px;
+	margin-top: 5px;
+}
+
+.category_button_selected {
+	color: #2A2922;
+	font-weight: bold;
+	background: #FFBB00;
+	padding: 5px;
+	width: 125px;
+	margin-top: 5px;
+}
+
 .button_normal {
 	color: #F3EBDD;
 	font-weight: bold;
