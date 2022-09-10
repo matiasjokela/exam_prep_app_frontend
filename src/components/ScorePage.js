@@ -1,5 +1,5 @@
 import LandingPage from './LandingPage'
-import Button from 'react-bootstrap/Button'
+import Button from './Button'
 import { useState } from 'react'
 import Card from 'react-bootstrap/Card'
 
@@ -13,14 +13,11 @@ const ScorePage = ({ correct, total }) => {
 	}
 
 	return (
-		<Card className='mx-auto' style={{ width: '18rem'}}>
-			<div className='text-center d-grid gap-2'>
-				<h2>Hello World!</h2>
-				<div>Sait {correct} / {total} oikein</div>
-				<Button className='btn-lg' variant='primary' onClick={() => setOk(1)}>OK</Button>
-			</div>
-		</Card>
-
+		<div className='card_view'>
+			<h2>Hello World!</h2>
+			<div>Sait {correct} / {total} oikein</div>
+			<Button text='OK' style='button_normal' active handleClick={() => setOk(1)} />
+		</div>
 	)
 }
 

@@ -14,10 +14,7 @@ html {
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
-}
-
-.centered {
-	text-align: center;
+	width: 350px;
 }
 
 .incorrect {
@@ -28,14 +25,42 @@ html {
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
+	width: 350px;
+}
+
+.container {
+	font-family: arial;
+	background-color: #2A2922;
+	font-size: 24px;
+	margin: 25px;
+	width: 350px;
+	height: 200px;
+	outline: dashed 1px black;
+	margin: 0 auto;
+}
+
+.card_view {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 350px;
+	height: 500px;
+	background: #F3EBDD;
+	text-align: center;
+	/* Center horizontally*/
+	margin: 0 auto;
+}
+
+.centered {
+	text-align: center;
+	margin: 0 auto;
 }
 
 .button_normal {
-	color: #2A2922;
+	color: #F3EBDD;
 	font-weight: bold;
-	background: #F3EBDD;
+	background: #2A2922;
 	padding: 5px;
 	width: 250px;
+	margin-top: 5px;
 }
 
 .button_selected {
@@ -44,6 +69,16 @@ html {
 	background: #FFBB00;
 	padding: 5px;
 	width: 250px;
+	margin-top: 5px;
+}
+
+.button_submit {
+	color: #F3EBDD;
+	font-weight: bold;
+	background: #336B87;
+	padding: 5px;
+	width: 250px;
+	margin-top: 25px;
 }
 
 .button_right {
@@ -62,3 +97,50 @@ html {
 	width: 250px;
 }
 
+
+
+
+/* Style off the internet */
+.button-28 {
+	appearance: none;
+	background-color: transparent;
+	border: 2px solid #1A1A1A;
+	border-radius: 15px;
+	box-sizing: border-box;
+	color: #3B3B3B;
+	cursor: pointer;
+	display: inline-block;
+	font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-size: 16px;
+	font-weight: 600;
+	line-height: normal;
+	margin: 0;
+	min-height: 60px;
+	min-width: 0;
+	outline: none;
+	padding: 16px 24px;
+	text-align: center;
+	text-decoration: none;
+	transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	width: 100%;
+	will-change: transform;
+  }
+  
+  .button-28:disabled {
+	pointer-events: none;
+  }
+  
+  .button-28:hover {
+	color: #fff;
+	background-color: #1A1A1A;
+	box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+	transform: translateY(-2px);
+  }
+  
+  .button-28:active {
+	box-shadow: none;
+	transform: translateY(0);
+  }

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import Button from 'react-bootstrap/Button'
+import Button from './Button'
 import ButtonList from './ButtonList'
-import Container from 'react-bootstrap/Container'
 import GamePage from "./GamePage"
 import questionService from '../services/questions'
-import Card from 'react-bootstrap/Card'
+
 
 const LandingPage = () => {
 	const [questions, setQuestions] = useState([])
@@ -21,13 +20,10 @@ const LandingPage = () => {
 	}
 
 	return (
-		<Card className='mx-auto' style={{ width: '18rem' }}>
-			<div className='text-center d-grid gap-2'>
-				<h2>Hello World!</h2>
-				<Button className='btn-lg' variant="warning" active onClick={() => setView('Game')}>Pelaa</Button>
-			</div>
-		</Card>
-
+		<div className='card_view'>
+			<h2>Hello World!</h2>
+			<Button text='Pelaa' style='button_normal' active handleClick={() => setView('Game')} />
+		</div>
 	)
 }
 
