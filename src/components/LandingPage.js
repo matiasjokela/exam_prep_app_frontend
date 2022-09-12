@@ -7,10 +7,12 @@ import LoginPage from './LoginPage'
 
 
 const LandingPage = () => {
+	const defaultStyle = 'button half_size_btn_normal'
+	const selectedStyle = 'button half_size_btn_selected'
 	const [questions, setQuestions] = useState([])
 	const [view, setView] = useState('Landing')
 	const [category, setCategory] = useState(null)
-	const [categoryStyles, setCategoryStyles] = useState(['category_button_normal', 'category_button_normal', 'category_button_normal'])
+	const [categoryStyles, setCategoryStyles] = useState([defaultStyle, defaultStyle, defaultStyle])
 
 	useEffect(() => {
 		questionService.getAll().then(questions => setQuestions(questions))
@@ -19,21 +21,21 @@ const LandingPage = () => {
 	const handleSelect = (selected) => {
 		if (selected === 'matematiikka') {
 			setCategory('matematiikka')
-			setCategoryStyles(['category_button_selected', 'category_button_normal', 'category_button_normal'])
+			setCategoryStyles([selectedStyle, defaultStyle, defaultStyle])
 		} else if (selected === 'englanti') {
 			setCategory('englanti')
-			setCategoryStyles(['category_button_normal', 'category_button_selected', 'category_button_normal'])
+			setCategoryStyles([defaultStyle, selectedStyle, defaultStyle])
 		} else if (selected === 'biologia') {
 			setCategory('biologia')
-			setCategoryStyles(['category_button_normal', 'category_button_normal', 'category_button_selected'])
+			setCategoryStyles([defaultStyle, defaultStyle, selectedStyle])
 		}
 	}
 	// if (category === 'matematiikka') {
-	// 	setCategoryStyles(['category_button_selected', 'category_button_normal', 'category_button_normal'])
+	// 	setCategoryStyles([selectedStyle, defaultStyle, defaultStyle])
 	// } else if (category === 'englanti') {
-	// 	setCategoryStyles(['category_button_normal', 'category_button_selected', 'category_button_normal'])
+	// 	setCategoryStyles([defaultStyle, selectedStyle, defaultStyle])
 	// } else if (category === 'biologia') {
-	// 	setCategoryStyles(['category_button_normal', 'category_button_normal', 'category_button_selected'])
+	// 	setCategoryStyles([defaultStyle, defaultStyle, selectedStyle])
 	// }
 
 
@@ -64,7 +66,7 @@ const LandingPage = () => {
 
 	return (
 		<div className='card_view'>
-			<Button text='kirjaudu ulos' style='button_normal' handleClick={handleLogout}/>
+			<Button text='kirjaudu ulos' style='button button_normal' handleClick={handleLogout}/>
 			<h2>Valitse aihe</h2>
 			<div>
 				<Button style={categoryStyles[0]} text='Matematiikka' handleClick={() => handleSelect('matematiikka')}/>
@@ -73,7 +75,7 @@ const LandingPage = () => {
 			<div>
 				<Button style={categoryStyles[2]} text='Biologia' handleClick={() => handleSelect('biologia')}/>
 			</div>
-			{!category ? <div>valitse aihe</div>: <Button text='Pelaa' style='button_normal' handleClick={() => setView('Game')} />}
+			{!category ? <div>valitse aihe</div>: <Button text='Pelaa' style='button button_normal' handleClick={() => setView('Game')} />}
 		</div>
 	)
 }

@@ -11,8 +11,8 @@ import ScorePage from './ScorePage'
 
 
 const GamePage = ({ questions }) => {
-	const defaultStyle = 'button_normal'
-	const selectedStyle = 'button_selected'
+	const defaultStyle = 'button button_normal'
+	const selectedStyle = 'button button_selected'
 	const [index, setIndex] = useState(0)
 	const [correct, setCorrect] = useState(0)
 	const [answer, setAnswer] = useState(null)
@@ -41,7 +41,7 @@ const GamePage = ({ questions }) => {
 	const checkAnswer = () => {
 		if (answer === questions[index].answer) {
 			setCorrect(correct + 1)
-			setMessageStyle('correct')
+			setMessageStyle('notification correct')
 			setMessage('Oikea vastaus!')
 			setTimeout(() => {
 				setMessage(null)
@@ -49,7 +49,7 @@ const GamePage = ({ questions }) => {
 				setIndex(index + 1)
 			}, 3000)
 		} else {
-			setMessageStyle('incorrect')
+			setMessageStyle('notification incorrect')
 			setMessage(`Väärin meni, oikea vastaus ${questions[index].answer}`)
 			setTimeout(() => {
 				setMessage(null)
@@ -76,7 +76,7 @@ const GamePage = ({ questions }) => {
 			<Button text={questions[index].option_b} handleClick={() => handleSelect('B')} style={buttonStyles[1]}/>
 			<Button text={questions[index].option_c} handleClick={() => handleSelect('C')} style={buttonStyles[2]}/>
 			<Button text={questions[index].option_d} handleClick={() => handleSelect('D')} style={buttonStyles[3]}/>
-			<Button text='Lähetä vastaus' handleClick={checkAnswer} style='button_submit'/>
+			<Button text='Lähetä vastaus' handleClick={checkAnswer} style='button button_submit'/>
 		</div>
 		
 	)

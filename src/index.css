@@ -1,48 +1,33 @@
-html {
-	/*background-color: #2A2922;*/
+body {
+	background-color: #2A2922;
 	font-weight: bold;
 	/*color: #F3EBDD;*/
 	/*font-family: arial;*/
 	margin: auto;
 }
 
-.correct {
-	color: #265C00;
+.notification {
 	background: #F3EBDD;
 	font-size: 20px;
 	border-style: solid;
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
-	width: 350px;
+	width: 100%;
+}
+
+.correct {
+	color: #265C00;
 }
 
 .incorrect {
 	color: #CB0000;
-	background: #F3EBDD;
-	font-size: 20px;
-	border-style: solid;
-	border-radius: 5px;
-	padding: 10px;
-	margin-bottom: 10px;
-	width: 350px;
-}
-
-.container {
-	font-family: arial;
-	background-color: #2A2922;
-	font-size: 24px;
-	margin: 25px;
-	width: 350px;
-	height: 200px;
-	outline: dashed 1px black;
-	margin: 0 auto;
 }
 
 .card_view {
 	font-family: Arial, Helvetica, sans-serif;
-	width: 350px;
-	height: 500px;
+	width: 400px;
+	height: 667px;
 	background: #F3EBDD;
 	text-align: center;
 	/* Center horizontally*/
@@ -65,74 +50,57 @@ html {
 	margin: 0 auto;
 }
 
-.login_button {
-	color: #F3EBDD;
+.button {
 	font-weight: bold;
-	background: #2A2922;
 	padding: 5px;
-	width: 125px;
 	margin-top: 5px;
 }
 
-.category_button_normal {
+.half_size_btn_normal {
 	color: #F3EBDD;
-	font-weight: bold;
 	background: #2A2922;
-	padding: 5px;
-	width: 125px;
-	margin-top: 5px;
+	width: 45%;
 }
 
-.category_button_selected {
+.half_size_btn_selected {
 	color: #2A2922;
-	font-weight: bold;
 	background: #FFBB00;
-	padding: 5px;
-	width: 125px;
-	margin-top: 5px;
+	width: 45%;
 }
 
 .button_normal {
 	color: #F3EBDD;
-	font-weight: bold;
 	background: #2A2922;
-	padding: 5px;
-	width: 250px;
-	margin-top: 5px;
+	width: 90%;
 }
 
 .button_selected {
 	color: #2A2922;
-	font-weight: bold;
 	background: #FFBB00;
-	padding: 5px;
-	width: 250px;
-	margin-top: 5px;
+	width: 90%;
 }
 
 .button_submit {
 	color: #F3EBDD;
-	font-weight: bold;
-	background: #336B87;
+	background: #1E434C;
 	padding: 5px;
-	width: 250px;
+	width: 90%;
 	margin-top: 25px;
+	margin-bottom: 25px
 }
 
 .button_right {
 	color: #2A2922;
-	font-weight: bold;
 	background: #265C00;
 	padding: 5px;
-	width: 250px;
+	
 }
 
 .button_wrong {
 	color: #2A2922;
-	font-weight: bold;
 	background: #CB0000;
 	padding: 5px;
-	width: 250px;
+	width: 90%;
 }
 
 
