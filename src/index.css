@@ -24,6 +24,21 @@ body {
 	color: #CB0000;
 }
 
+.content_box {
+
+	width: 90%;
+	height: 50%;
+	text-align: center;
+	margin: 0 auto;
+	border: 2px dashed #1A1A1A;
+	justify-content: center;
+}
+
+.question {
+	margin-top: 50%;
+	font-size: 80%;
+}
+
 .card_view {
 	font-family: Arial, Helvetica, sans-serif;
 	width: 400px;
@@ -54,6 +69,15 @@ body {
 	font-weight: bold;
 	padding: 5px;
 	margin-top: 5px;
+}
+
+.button_logout {
+	color: #F3EBDD;
+	background: #2A2922;
+	font-size: small;
+	margin-right: 0px;
+	display: block;
+	margin-left: auto;
 }
 
 .half_size_btn_normal {

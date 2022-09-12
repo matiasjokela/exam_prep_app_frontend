@@ -70,8 +70,12 @@ const GamePage = ({ questions }) => {
 	return (
 		<div className='card_view'>
 			<Notification style={messageStyle} message={message}/>
-			<div> {questions[index].header} </div>
-			<h2>{questions[index].question}</h2>
+			<div className='content_box'>
+				<div className='question'>
+					<div> {questions[index].header} </div>
+					<div>{questions[index].question}</div>
+				</div>
+			</div>
 			<Button text={questions[index].option_a} handleClick={() => handleSelect('A')} style={buttonStyles[0]}/>
 			<Button text={questions[index].option_b} handleClick={() => handleSelect('B')} style={buttonStyles[1]}/>
 			<Button text={questions[index].option_c} handleClick={() => handleSelect('C')} style={buttonStyles[2]}/>

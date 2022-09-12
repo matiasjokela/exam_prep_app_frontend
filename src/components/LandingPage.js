@@ -66,8 +66,10 @@ const LandingPage = () => {
 
 	return (
 		<div className='card_view'>
-			<Button text='kirjaudu ulos' style='button button_normal' handleClick={handleLogout}/>
-			<h2>Valitse aihe</h2>
+			<Button text='kirjaudu ulos' style='button button_logout' handleClick={handleLogout}/>
+			<div className='content_box'>
+				<h2>Valitse aihe</h2>
+			</div>			
 			<div>
 				<Button style={categoryStyles[0]} text='Matematiikka' handleClick={() => handleSelect('matematiikka')}/>
 				<Button style={categoryStyles[1]} text='Englanti' handleClick={() => handleSelect('englanti')}/>
