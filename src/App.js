@@ -1,23 +1,35 @@
-import LoginPage from "./components/LoginPage"
-import LandingPage from "./components/LandingPage"
-import userService from './services/user'
-import { useState } from 'react'
-
+import LoginPage from "./components/LoginPage";
+import LandingPage from "./components/LandingPage";
+import userService from "./services/user";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const App = () => {
-	const user = window.localStorage.getItem('loggedExamPrepUser')
-	
-	console.log('user', user)
+  let valid = false;
+  const [allUsers, setAllUsers] = useState([]);
+  let local = null;
+  try {
+    local = JSON.parse(window.localStorage.getItem("loggedExamPrepUser"));
+  } catch (e) {
+    console.log(e);
+  }
 
+  useEffect(() => {
+    userService.getAll().then((response) => setAllUsers(response));
+  }, []);
 
-	// Huom, tässäkin täytyy validoida käyttäjä!!!!!!!!
-	return (
-		<div className='card_view'>
-			{!user ? <LoginPage /> : <LandingPage />}
-		</div>
-	)
-}
+  if (local) {
+    allUsers.map((user) => {
+      if (user.id === local.id) {
+        console.log("jee", user);
+        valid = true;
+      }
+    });
+  }
 
+  return (
+    <div className="card_view">{!valid ? <LoginPage /> : <LandingPage />}</div>
+  );
+};
 
-
-export default App
+export default App;
