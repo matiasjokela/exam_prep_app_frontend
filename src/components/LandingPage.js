@@ -31,16 +31,16 @@ const LandingPage = () => {
         defaultStyle,
         defaultStyle,
       ]);
-    } else if (selected === "englanti") {
-      setCategory("englanti");
+    } else if (selected === "biologia") {
+      setCategory("biologia");
       setCategoryStyles([
         defaultStyle,
         selectedStyle,
         defaultStyle,
         defaultStyle,
       ]);
-    } else if (selected === "biologia") {
-      setCategory("biologia");
+    } else if (selected === "kemia") {
+      setCategory("kemia");
       setCategoryStyles([
         defaultStyle,
         defaultStyle,
@@ -74,7 +74,7 @@ const LandingPage = () => {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
     console.log(shuffledQuestions);
-    return <GamePage questions={shuffledQuestions} />;
+    return <GamePage questions={shuffledQuestions} length={20} />;
   } else if (view === "Login") {
     return <LoginPage />;
   }
@@ -103,15 +103,15 @@ const LandingPage = () => {
         />
         <Button
           style={categoryStyles[1]}
-          text="Englanti"
-          handleClick={() => handleSelect("englanti")}
+          text="Biologia"
+          handleClick={() => handleSelect("biologia")}
         />
       </div>
       <div>
         <Button
           style={categoryStyles[2]}
-          text="Biologia"
-          handleClick={() => handleSelect("biologia")}
+          text="Kemia"
+          handleClick={() => handleSelect("kemia")}
         />
         <Button
           style={categoryStyles[3]}

@@ -4,6 +4,12 @@ import userService from "./services/user";
 import { useEffect } from "react";
 import { useState } from "react";
 
+// Kysymykset
+// Fysiikka 2020 syksy viimeisin lisätty
+// Kemia 2021 kevät viimeisin lisätty HUOM! Pitää tarkistaa, miltä kaavat näyttävät!!
+// Biologia
+// Matematiikka https://mafy.fi/yo-kokeiden-mallivastaukset/
+
 const App = () => {
   let valid = false;
   const [allUsers, setAllUsers] = useState([]);
