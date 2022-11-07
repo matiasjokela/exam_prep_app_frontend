@@ -6,9 +6,9 @@ import { useState } from "react";
 
 // Kysymykset
 // Fysiikka 2020 syksy viimeisin lisätty
-// Kemia 2021 kevät viimeisin lisätty HUOM! Pitää tarkistaa, miltä kaavat näyttävät!!
-// Biologia
-// Matematiikka https://mafy.fi/yo-kokeiden-mallivastaukset/
+// Kemia 2020 kevät viimeisin lisätty
+// Biologia 2022 syksy viimeisin lisätty
+// Matematiikka | Ei oikein kopioitavissa niin, että kaavat näkyvät oikein => joku muu tilalle?
 
 const App = () => {
   let valid = false;
