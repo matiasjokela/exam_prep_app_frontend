@@ -7,8 +7,7 @@ import { useState } from "react";
 // Kysymykset
 // Fysiikka 2020 syksy viimeisin lisätty
 // Kemia 2020 kevät viimeisin lisätty
-// Biologia 2022 syksy viimeisin lisätty
-// Matematiikka | Ei oikein kopioitavissa niin, että kaavat näkyvät oikein => joku muu tilalle?
+// Biologia 2020 syksy viimeisin lisätty
 
 const App = () => {
   let valid = false;

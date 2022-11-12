@@ -15,7 +15,6 @@ const LandingPage = () => {
     defaultStyle,
     defaultStyle,
     defaultStyle,
-    defaultStyle,
   ]);
 
   useEffect(() => {
@@ -23,38 +22,15 @@ const LandingPage = () => {
   }, []);
 
   const handleSelect = (selected) => {
-    if (selected === "matematiikka") {
-      setCategory("matematiikka");
-      setCategoryStyles([
-        selectedStyle,
-        defaultStyle,
-        defaultStyle,
-        defaultStyle,
-      ]);
+    if (selected === "fysiikka") {
+      setCategory("fysiikka");
+      setCategoryStyles([selectedStyle, defaultStyle, defaultStyle]);
     } else if (selected === "biologia") {
       setCategory("biologia");
-      setCategoryStyles([
-        defaultStyle,
-        selectedStyle,
-        defaultStyle,
-        defaultStyle,
-      ]);
+      setCategoryStyles([defaultStyle, selectedStyle, defaultStyle]);
     } else if (selected === "kemia") {
       setCategory("kemia");
-      setCategoryStyles([
-        defaultStyle,
-        defaultStyle,
-        selectedStyle,
-        defaultStyle,
-      ]);
-    } else if (selected === "fysiikka") {
-      setCategory("fysiikka");
-      setCategoryStyles([
-        defaultStyle,
-        defaultStyle,
-        defaultStyle,
-        selectedStyle,
-      ]);
+      setCategoryStyles([defaultStyle, defaultStyle, selectedStyle]);
     }
   };
   // if (category === 'matematiikka') {
@@ -98,8 +74,8 @@ const LandingPage = () => {
       <div>
         <Button
           style={categoryStyles[0]}
-          text="Matematiikka"
-          handleClick={() => handleSelect("matematiikka")}
+          text="Fysiikka"
+          handleClick={() => handleSelect("fysiikka")}
         />
         <Button
           style={categoryStyles[1]}
@@ -112,11 +88,6 @@ const LandingPage = () => {
           style={categoryStyles[2]}
           text="Kemia"
           handleClick={() => handleSelect("kemia")}
-        />
-        <Button
-          style={categoryStyles[3]}
-          text="Fysiikka"
-          handleClick={() => handleSelect("fysiikka")}
         />
       </div>
       {!category ? (
