@@ -1,7 +1,7 @@
-//import Button from 'react-bootstrap/Button'
-//import Card from 'react-bootstrap/Card'
-import Button from "./Button";
-import Notification from "./Notification";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+//import Button from "./Button";
+//import Notification from "./Notification";
 import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import ScorePage from "./ScorePage";
@@ -91,61 +91,83 @@ const GamePage = ({ questions, length }) => {
     return <ScorePage correct={correct} total={len} />;
   }
   return (
-    <div className="card_view">
-      <Notification style={messageStyle} message={message} />
-      <div className="content_box">
-        <div className="question">
-          <div> {questions[index].header} </div>
-          <div>{questions[index].question}</div>
+    <Card className="mx-auto" style={{ width: "18rem" }}>
+      <div className="text-center">
+        <Alert variant={messageStyle}>{message}</Alert>
+        <h2>{questions[index].question}</h2>
+        <div className="d-grid gap-2">
+          <Button
+            className="btn-lg"
+            variant={buttonStyles[0]}
+            onClick={() => handleSelect("A")}
+          >
+            A: {questions[index].option_a}
+          </Button>
+          <Button
+            className="btn-lg"
+            variant={buttonStyles[1]}
+            onClick={() => handleSelect("B")}
+          >
+            B: {questions[index].option_b}
+          </Button>
+          <Button
+            className="btn-lg"
+            variant={buttonStyles[2]}
+            onClick={() => handleSelect("C")}
+          >
+            C: {questions[index].option_c}
+          </Button>
+          <Button
+            className="btn-lg"
+            variant={buttonStyles[3]}
+            onClick={() => handleSelect("D")}
+          >
+            D: {questions[index].option_d}
+          </Button>
+          <Button className="btn-lg" variant="dark" onClick={checkAnswer}>
+            Lähetä vastaus
+          </Button>
         </div>
       </div>
-      <Button
-        text={questions[index].option_a}
-        handleClick={() => handleSelect("A")}
-        style={buttonStyles[0]}
-      />
-      <Button
-        text={questions[index].option_b}
-        handleClick={() => handleSelect("B")}
-        style={buttonStyles[1]}
-      />
-      <Button
-        text={questions[index].option_c}
-        handleClick={() => handleSelect("C")}
-        style={buttonStyles[2]}
-      />
-      <Button
-        text={questions[index].option_d}
-        handleClick={() => handleSelect("D")}
-        style={buttonStyles[3]}
-      />
-      <Button
-        text="Lähetä vastaus"
-        handleClick={checkAnswer}
-        style="button button_submit"
-      />
-    </div>
+    </Card>
   );
 };
 
 export default GamePage;
 
-// Bootstrap
+// OMA CSS
 
-{
-  /* <Card className='mx-auto' style={{ width: '18rem' }}>
-<div className='text-center'>
-	<Alert variant={messageStyle}>
-		{message}
-	</Alert>
-	<h2>{questions[index].question}</h2>
-	<div className='d-grid gap-2'>
-		<Button className='btn-lg' variant={buttonStyles[0]} onClick={() => handleSelect('A')}>A: {questions[index].option_a}</Button>
-		<Button className='btn-lg' variant={buttonStyles[1]} onClick={() => handleSelect('B')}>B: {questions[index].option_b}</Button>
-		<Button className='btn-lg' variant={buttonStyles[2]} onClick={() => handleSelect('C')}>C: {questions[index].option_c}</Button>
-		<Button className='btn-lg' variant={buttonStyles[3]} onClick={() => handleSelect('D')}>D: {questions[index].option_d}</Button>
-		<Button className='btn-lg' variant='dark' onClick={checkAnswer}>Lähetä vastaus</Button>
-	</div>
+/*<div className="card_view">
+<Notification style={messageStyle} message={message} />
+<div className="content_box">
+  <div className="question">
+	<div> {questions[index].header} </div>
+	<div>{questions[index].question}</div>
+  </div>
 </div>
-</Card> */
-}
+<Button
+  text={questions[index].option_a}
+  handleClick={() => handleSelect("A")}
+  style={buttonStyles[0]}
+/>
+<Button
+  text={questions[index].option_b}
+  handleClick={() => handleSelect("B")}
+  style={buttonStyles[1]}
+/>
+<Button
+  text={questions[index].option_c}
+  handleClick={() => handleSelect("C")}
+  style={buttonStyles[2]}
+/>
+<Button
+  text={questions[index].option_d}
+  handleClick={() => handleSelect("D")}
+  style={buttonStyles[3]}
+/>
+<Button
+  text="Lähetä vastaus"
+  handleClick={checkAnswer}
+  style="button button_submit"
+/>
+</div>*/

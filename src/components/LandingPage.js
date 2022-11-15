@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import Button from "./Button";
-import ButtonList from "./ButtonList";
+//import Button from "./Button";
+//import ButtonList from "./ButtonList";
 import GamePage from "./GamePage";
 import questionService from "../services/questions";
 import LoginPage from "./LoginPage";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 const LandingPage = () => {
   const defaultStyle = "button half_size_btn_normal";
@@ -62,45 +64,78 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="card_view">
+    <Card className="mx-auto" style={{ width: "18rem" }}>
       <Button
-        text="kirjaudu ulos"
-        style="button button_logout"
-        handleClick={handleLogout}
-      />
-      <div className="content_box">
-        <h2>Valitse aihe</h2>
-      </div>
-      <div>
-        <Button
-          style={categoryStyles[0]}
-          text="Fysiikka"
-          handleClick={() => handleSelect("fysiikka")}
-        />
-        <Button
-          style={categoryStyles[1]}
-          text="Biologia"
-          handleClick={() => handleSelect("biologia")}
-        />
-      </div>
-      <div>
-        <Button
-          style={categoryStyles[2]}
-          text="Kemia"
-          handleClick={() => handleSelect("kemia")}
-        />
-      </div>
-      {!category ? (
-        <div>valitse aihe</div>
-      ) : (
-        <Button
-          text="Pelaa"
-          style="button button_normal"
-          handleClick={() => setView("Game")}
-        />
-      )}
-    </div>
+        className="btn-lg"
+        variant="warning"
+        onClick={() => handleSelect("fysiikka")}
+      >
+        Fysiikka
+      </Button>
+      <Button
+        className="btn-lg"
+        variant="warning"
+        onClick={() => handleSelect("biologia")}
+      >
+        Biologia
+      </Button>
+      <Button
+        className="btn-lg"
+        variant="warning"
+        onClick={() => handleSelect("kemia")}
+      >
+        Kemia
+      </Button>
+      <Button
+        className="btn-lg"
+        variant="success"
+        onClick={() => setView("Game")}
+      >
+        Pelaa
+      </Button>
+    </Card>
   );
 };
 
 export default LandingPage;
+
+// OMA CSS
+
+/*<div className="card_view">
+<Button
+  text="kirjaudu ulos"
+  style="button button_logout"
+  handleClick={handleLogout}
+/>
+<div className="content_box">
+  <h2>Valitse aihe</h2>
+</div>
+<div>
+  <Button
+	style={categoryStyles[0]}
+	text="Fysiikka"
+	handleClick={() => handleSelect("fysiikka")}
+  />
+  <Button
+	style={categoryStyles[1]}
+	text="Biologia"
+	handleClick={() => handleSelect("biologia")}
+  />
+</div>
+<div>
+  <Button
+	style={categoryStyles[2]}
+	text="Kemia"
+	handleClick={() => handleSelect("kemia")}
+  />
+</div>
+{!category ? (
+  <div>valitse aihe</div>
+) : (
+  <Button
+	text="Pelaa"
+	style="button button_normal"
+	handleClick={() => setView("Game")}
+  />
+)}
+</div>*/
