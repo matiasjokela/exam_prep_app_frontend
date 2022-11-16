@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import ScorePage from "./ScorePage";
-import { Container } from "react-bootstrap";
+import { ButtonGroup, Container } from "react-bootstrap";
 
 // Mikä paras tapa näyttää valittu nappi keltaisena jne???
 
@@ -94,53 +94,33 @@ const GamePage = ({ questions, length }) => {
   }
   return (
     <Container className="p-sm-3 p-0">
-      <Card className="mb-3 mx-auto w-100 shadow"></Card>
-      <Card.Body>
-        <Card.Title className="fs-5 d-flex mb-4">
-          {questions[index].question}
-        </Card.Title>
-        <Row className="fs-5 d-flex mb-4">
-          <Button
-            className="btn-lg"
-            variant={buttonStyles[0]}
-            onClick={() => handleSelect("A")}
+      <Card className="mb-3 mx-auto w-100 shadow">
+        <Card.Body>
+          <Card.Title className="fs-5 d-flex mb-4" style={{ height: "12rem" }}>
+            {questions[index].question}
+          </Card.Title>
+          <ButtonGroup
+            className="d-grid gap-2 mx-auto"
+            style={{ height: "12rem" }}
           >
-            A: {questions[index].option_a}
-          </Button>
-        </Row>
-        <Row className="fs-5 d-flex mb-4">
-          <Button
-            className="btn-lg"
-            variant={buttonStyles[1]}
-            onClick={() => handleSelect("B")}
-          >
-            B: {questions[index].option_b}
-          </Button>
-        </Row>
-        <Row className="fs-5 d-flex mb-4">
-          <Button
-            className="btn-lg"
-            variant={buttonStyles[2]}
-            onClick={() => handleSelect("C")}
-          >
-            C: {questions[index].option_c}
-          </Button>
-        </Row>
-        <Row className="fs-5 d-flex mb-4">
-          <Button
-            className="btn-lg"
-            variant={buttonStyles[3]}
-            onClick={() => handleSelect("D")}
-          >
-            D: {questions[index].option_d}
-          </Button>
-        </Row>
-        <Row className="fs-5 d-flex mb-4">
-          <Button className="btn-lg" variant="dark" onClick={checkAnswer}>
-            Lähetä vastaus
-          </Button>
-        </Row>
-      </Card.Body>
+            <Button variant="secondary" onClick={() => handleSelect("A")}>
+              A: {questions[index].option_a}
+            </Button>
+            <Button variant="secondary" onClick={() => handleSelect("B")}>
+              B: {questions[index].option_b}
+            </Button>
+            <Button variant="secondary" onClick={() => handleSelect("C")}>
+              C: {questions[index].option_c}
+            </Button>
+            <Button variant="secondary" onClick={() => handleSelect("D")}>
+              D: {questions[index].option_d}
+            </Button>
+            <Button className="btn-lg" variant="dark" onClick={checkAnswer}>
+              Lähetä vastaus
+            </Button>
+          </ButtonGroup>
+        </Card.Body>
+      </Card>
     </Container>
   );
 };

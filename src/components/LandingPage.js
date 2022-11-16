@@ -6,6 +6,7 @@ import questionService from "../services/questions";
 import LoginPage from "./LoginPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { ButtonGroup } from "react-bootstrap";
 
 const LandingPage = () => {
   const defaultStyle = "button half_size_btn_normal";
@@ -64,7 +65,7 @@ const LandingPage = () => {
   };
 
   return (
-    <Card className="mx-auto" style={{ width: "18rem" }}>
+    <ButtonGroup className="d-grid gap-2 mx-auto">
       <Button
         className="btn-lg"
         variant="warning"
@@ -93,7 +94,7 @@ const LandingPage = () => {
       >
         Pelaa
       </Button>
-    </Card>
+    </ButtonGroup>
   );
 };
 
