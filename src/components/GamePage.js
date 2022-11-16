@@ -1,10 +1,12 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Card";
 //import Button from "./Button";
 //import Notification from "./Notification";
 import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import ScorePage from "./ScorePage";
+import { Container } from "react-bootstrap";
 
 // Mikä paras tapa näyttää valittu nappi keltaisena jne???
 
@@ -91,11 +93,13 @@ const GamePage = ({ questions, length }) => {
     return <ScorePage correct={correct} total={len} />;
   }
   return (
-    <Card className="mx-auto" style={{ width: "18rem" }}>
-      <div className="text-center">
-        <Alert variant={messageStyle}>{message}</Alert>
-        <h2>{questions[index].question}</h2>
-        <div className="d-grid gap-2">
+    <Container className="p-sm-3 p-0">
+      <Card className="mb-3 mx-auto w-100 shadow"></Card>
+      <Card.Body>
+        <Card.Title className="fs-5 d-flex mb-4">
+          {questions[index].question}
+        </Card.Title>
+        <Row className="fs-5 d-flex mb-4">
           <Button
             className="btn-lg"
             variant={buttonStyles[0]}
@@ -103,6 +107,8 @@ const GamePage = ({ questions, length }) => {
           >
             A: {questions[index].option_a}
           </Button>
+        </Row>
+        <Row className="fs-5 d-flex mb-4">
           <Button
             className="btn-lg"
             variant={buttonStyles[1]}
@@ -110,6 +116,8 @@ const GamePage = ({ questions, length }) => {
           >
             B: {questions[index].option_b}
           </Button>
+        </Row>
+        <Row className="fs-5 d-flex mb-4">
           <Button
             className="btn-lg"
             variant={buttonStyles[2]}
@@ -117,6 +125,8 @@ const GamePage = ({ questions, length }) => {
           >
             C: {questions[index].option_c}
           </Button>
+        </Row>
+        <Row className="fs-5 d-flex mb-4">
           <Button
             className="btn-lg"
             variant={buttonStyles[3]}
@@ -124,12 +134,14 @@ const GamePage = ({ questions, length }) => {
           >
             D: {questions[index].option_d}
           </Button>
+        </Row>
+        <Row className="fs-5 d-flex mb-4">
           <Button className="btn-lg" variant="dark" onClick={checkAnswer}>
             Lähetä vastaus
           </Button>
-        </div>
-      </div>
-    </Card>
+        </Row>
+      </Card.Body>
+    </Container>
   );
 };
 
@@ -171,3 +183,45 @@ export default GamePage;
   style="button button_submit"
 />
 </div>*/
+
+// Aikaisempi Bootstrap
+
+/*<Card className="mx-auto" style={{ width: "18rem", height: "18rem" }}>
+<div className="text-center">
+  <Alert variant={messageStyle}>{message}</Alert>
+  <h2>{questions[index].question}</h2>
+  <div className="d-grid gap-2">
+	<Button
+	  className="btn-lg"
+	  variant={buttonStyles[0]}
+	  onClick={() => handleSelect("A")}
+	>
+	  A: {questions[index].option_a}
+	</Button>
+	<Button
+	  className="btn-lg"
+	  variant={buttonStyles[1]}
+	  onClick={() => handleSelect("B")}
+	>
+	  B: {questions[index].option_b}
+	</Button>
+	<Button
+	  className="btn-lg"
+	  variant={buttonStyles[2]}
+	  onClick={() => handleSelect("C")}
+	>
+	  C: {questions[index].option_c}
+	</Button>
+	<Button
+	  className="btn-lg"
+	  variant={buttonStyles[3]}
+	  onClick={() => handleSelect("D")}
+	>
+	  D: {questions[index].option_d}
+	</Button>
+	<Button className="btn-lg" variant="dark" onClick={checkAnswer}>
+	  Lähetä vastaus
+	</Button>
+  </div>
+</div>
+</Card>*/
