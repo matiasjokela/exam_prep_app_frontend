@@ -96,29 +96,49 @@ const GamePage = ({ questions, length }) => {
     <Container className="p-sm-3 p-0">
       <Card className="mb-3 mx-auto w-100 shadow">
         <Card.Body>
-          <Card.Title className="fs-5 d-flex mb-4" style={{ height: "12rem" }}>
-            {questions[index].question}
-          </Card.Title>
-          <ButtonGroup
-            className="d-grid gap-2 mx-auto"
+          <Card.Title
+            className="fs-5 d-flex mb-4 mx-auto"
             style={{ height: "12rem" }}
           >
-            <Button variant="secondary" onClick={() => handleSelect("A")}>
-              A: {questions[index].option_a}
-            </Button>
-            <Button variant="secondary" onClick={() => handleSelect("B")}>
-              B: {questions[index].option_b}
-            </Button>
-            <Button variant="secondary" onClick={() => handleSelect("C")}>
-              C: {questions[index].option_c}
-            </Button>
-            <Button variant="secondary" onClick={() => handleSelect("D")}>
-              D: {questions[index].option_d}
-            </Button>
-            <Button className="btn-lg" variant="dark" onClick={checkAnswer}>
-              Lähetä vastaus
-            </Button>
-          </ButtonGroup>
+            {questions[index].question}
+          </Card.Title>
+
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => handleSelect("B")}
+          >
+            A: {questions[index].option_a}
+          </Button>
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => handleSelect("B")}
+          >
+            B: {questions[index].option_b}
+          </Button>
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => handleSelect("B")}
+          >
+            C: {questions[index].option_c}
+          </Button>
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => handleSelect("B")}
+          >
+            D: {questions[index].option_d}
+          </Button>
+
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="secondary"
+            onClick={checkAnswer}
+          >
+            Lähetä vastaus
+          </Button>
         </Card.Body>
       </Card>
     </Container>

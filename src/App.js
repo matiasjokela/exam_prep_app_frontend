@@ -32,9 +32,7 @@ const App = () => {
     });
   }
 
-  return (
-    <div className="card_view">{!valid ? <LoginPage /> : <LandingPage />}</div>
-  );
+  return <div>{!valid ? <LoginPage /> : <LandingPage />}</div>;
 };
 
 export default App;
