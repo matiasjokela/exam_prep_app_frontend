@@ -93,11 +93,11 @@ const GamePage = ({ questions, length }) => {
     return <ScorePage correct={correct} total={len} />;
   }
   return (
-    <Container className="p-sm-3 p-0">
-      <Card className="mb-3 mx-auto w-100 shadow">
+    <Container className="p-sm-3 p-0 bg-warning">
+      <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
         <Card.Body>
           <Card.Title
-            className="fs-5 d-flex mb-4 mx-auto"
+            className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
             style={{ height: "12rem" }}
           >
             {questions[index].question}

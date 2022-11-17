@@ -6,7 +6,7 @@ import questionService from "../services/questions";
 import LoginPage from "./LoginPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { ButtonGroup } from "react-bootstrap";
+import { ButtonGroup, Container } from "react-bootstrap";
 
 const LandingPage = () => {
   const defaultStyle = "button half_size_btn_normal";
@@ -65,36 +65,47 @@ const LandingPage = () => {
   };
 
   return (
-    <ButtonGroup className="d-grid gap-2 mx-auto">
-      <Button
-        className="btn-lg"
-        variant="warning"
-        onClick={() => handleSelect("fysiikka")}
-      >
-        Fysiikka
-      </Button>
-      <Button
-        className="btn-lg"
-        variant="warning"
-        onClick={() => handleSelect("biologia")}
-      >
-        Biologia
-      </Button>
-      <Button
-        className="btn-lg"
-        variant="warning"
-        onClick={() => handleSelect("kemia")}
-      >
-        Kemia
-      </Button>
-      <Button
-        className="btn-lg"
-        variant="success"
-        onClick={() => setView("Game")}
-      >
-        Pelaa
-      </Button>
-    </ButtonGroup>
+    <Container className="p-sm-3 p-0 bg-warning align-items-center">
+      <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
+        <Card.Body>
+          <Card.Title
+            className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
+            style={{ height: "12rem" }}
+          >
+            Valitse kategoria
+          </Card.Title>
+
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => handleSelect("fysiikka")}
+          >
+            Fysiikka
+          </Button>
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => handleSelect("biologia")}
+          >
+            Biologia
+          </Button>
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => handleSelect("kemia")}
+          >
+            Kemia
+          </Button>
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="dark"
+            onClick={() => setView("Game")}
+          >
+            Pelaa
+          </Button>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 
