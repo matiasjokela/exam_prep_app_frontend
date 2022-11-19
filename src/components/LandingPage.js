@@ -53,9 +53,11 @@ const LandingPage = () => {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
     console.log(shuffledQuestions);
-    return <GamePage questions={shuffledQuestions} length={20} />;
+    return <GamePage questions={shuffledQuestions} length={5} />;
   } else if (view === "Login") {
     return <LoginPage />;
+  } else if (view === "Stats") {
+    console.log("Statseja kehiin");
   }
 
   const handleLogout = () => {
@@ -65,9 +67,26 @@ const LandingPage = () => {
   };
 
   return (
-    <Container className="p-sm-3 p-0 bg-warning align-items-center">
+    <Container className="p-sm-3 p-0 align-items-center card_view">
       <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
         <Card.Body>
+          <ButtonGroup>
+            <Button
+              className="d-grid gap-2 mx-auto w-100"
+              variant="outline-dark"
+              onClick={() => setView("Stats")}
+            >
+              Tilastot
+            </Button>
+            <Button
+              className="d-grid gap-2 mx-auto w-100"
+              variant="outline-dark"
+              onClick={() => handleLogout()}
+            >
+              Kirjaudu ulos
+            </Button>
+          </ButtonGroup>
+
           <Card.Title
             className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
             style={{ height: "12rem" }}
