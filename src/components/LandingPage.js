@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import GamePage from "./GamePage";
 import questionService from "../services/questions";
 import LoginPage from "./LoginPage";
+import StatsPage from "./StatsPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { ButtonGroup, Container } from "react-bootstrap";
@@ -57,7 +58,7 @@ const LandingPage = () => {
   } else if (view === "Login") {
     return <LoginPage />;
   } else if (view === "Stats") {
-    console.log("Statseja kehiin");
+    return <StatsPage />;
   }
 
   const handleLogout = () => {
