@@ -6,7 +6,7 @@ import questionService from "../services/questions";
 import LoginPage from "./LoginPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { ButtonGroup, Container, Row } from "react-bootstrap";
+import { ButtonGroup, Container, Row, Table } from "react-bootstrap";
 import LandingPage from "./LandingPage";
 import userService from "../services/user";
 
@@ -30,7 +30,7 @@ const StatsPage = () => {
     });
   }, []);
 
-  if (user && best == "Ei pelejä") {
+  if (user && best === "Ei pelejä") {
     if (user.physicsTotal) {
       setPhysics(`${user.physicsCorrect} / ${user.physicsTotal} (
 			${(user.physicsCorrect / user.physicsTotal) * 100} %)`);
@@ -52,7 +52,7 @@ const StatsPage = () => {
 
   // Miten saatiinkaan sivu refreshaamaan fiksusti
   const handleZero = () => {
-    if (user) {
+    if (user && window.confirm("Haluatko varmasti poistaa kaikki tilastot")) {
       userService.update(
         {
           physicsCorrect: 0,
@@ -103,17 +103,16 @@ const StatsPage = () => {
           </ButtonGroup>
 
           <Card.Title
-            className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
+            className="fs-4 d-flex mb-4 mx-auto card_view align-items-center"
             style={{ height: "3rem" }}
           >
-            Tilastot
+            <strong>Tilastot</strong>
           </Card.Title>
-          <Card.Text>
-            <Row>Fysiikka: {physics}</Row>
-            <Row>Kemia: {chemistry}</Row>
-            <Row>Biologia: {biology}</Row>
-            <Row>Paras: {best}</Row>
-          </Card.Text>
+
+          <Row>Fysiikka: {physics}</Row>
+          <Row>Kemia: {chemistry}</Row>
+          <Row>Biologia: {biology}</Row>
+          <Row>Paras: {best}</Row>
         </Card.Body>
       </Card>
     </Container>
