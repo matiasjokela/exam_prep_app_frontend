@@ -73,7 +73,7 @@ const GamePage = ({ questions, length }) => {
   const checkAnswer = () => {
     if (answer === questions[index].answer) {
       setCorrect(correct + 1);
-      setMessageStyle("notification correct");
+      setMessageStyle("success");
       setMessage("Oikea vastaus!");
       setTimeout(() => {
         setMessage(null);
@@ -81,7 +81,7 @@ const GamePage = ({ questions, length }) => {
         setIndex(index + 1);
       }, 500);
     } else {
-      setMessageStyle("notification incorrect");
+      setMessageStyle("danger");
       setMessage(`Väärin meni, oikea vastaus ${questions[index].answer}`);
       setTimeout(() => {
         setMessage(null);
@@ -104,6 +104,7 @@ const GamePage = ({ questions, length }) => {
   }
   return (
     <Container className="p-sm-3 p-0 card_view">
+      <Alert variant={messageStyle}>{message}</Alert>
       <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
         <Card.Body>
           <Card.Title
@@ -112,7 +113,9 @@ const GamePage = ({ questions, length }) => {
           >
             {questions[index].question}
           </Card.Title>
-
+          <Card.Subtitle className="mb-2 text-muted">
+            Kysymys {index + 1} / {len}
+          </Card.Subtitle>
           <Button
             className="d-grid gap-2 mx-auto w-100"
             variant={buttonStyles[0]}

@@ -15,6 +15,7 @@ const LandingPage = () => {
   const [questions, setQuestions] = useState([]);
   const [view, setView] = useState("Landing");
   const [category, setCategory] = useState(null);
+  const [questionCount, setQuestionCount] = useState(20);
   const [categoryStyles, setCategoryStyles] = useState([
     defaultStyle,
     defaultStyle,
@@ -54,7 +55,7 @@ const LandingPage = () => {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
     console.log(shuffledQuestions);
-    return <GamePage questions={shuffledQuestions} length={5} />;
+    return <GamePage questions={shuffledQuestions} length={questionCount} />;
   } else if (view === "Login") {
     return <LoginPage />;
   } else if (view === "Stats") {
@@ -89,11 +90,40 @@ const LandingPage = () => {
               Kirjaudu ulos
             </Button>
           </ButtonGroup>
-
-          <Card.Title
-            className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
-            style={{ height: "12rem" }}
-          >
+          <Card.Title className="fs-5 d-flex mb-4 mx-auto card_view align-items-center">
+            Valitse kysymysten määrä
+          </Card.Title>
+          <ButtonGroup>
+            <Button
+              className="d-grid gap-2 mx-auto w-100"
+              variant="outline-dark"
+              onClick={() => setQuestionCount(5)}
+            >
+              5
+            </Button>
+            <Button
+              className="d-grid gap-2 mx-auto w-100"
+              variant="outline-dark"
+              onClick={() => setQuestionCount(10)}
+            >
+              10
+            </Button>
+            <Button
+              className="d-grid gap-2 mx-auto w-100"
+              variant="outline-dark"
+              onClick={() => setQuestionCount(15)}
+            >
+              15
+            </Button>
+            <Button
+              className="d-grid gap-2 mx-auto w-100"
+              variant="outline-dark"
+              onClick={() => setQuestionCount(20)}
+            >
+              20
+            </Button>
+          </ButtonGroup>
+          <Card.Title className="fs-5 d-flex mb-4 mx-auto card_view align-items-center">
             Valitse kategoria
           </Card.Title>
 

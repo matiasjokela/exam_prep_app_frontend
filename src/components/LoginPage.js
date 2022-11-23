@@ -11,9 +11,7 @@ import { Button } from "react-bootstrap";
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState(null);
   const [user, setUser] = useState(null);
-  const [messageStyle, setMessageStyle] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,17 +29,13 @@ const LoginPage = () => {
       setPassword("");
       console.log("logged in as", user);
     } catch (exception) {
-      console.log(exception);
+      const response = JSON.parse(exception.request.response);
+      window.confirm(response.error);
       setUser(null);
       setUsername("");
       setPassword("");
-      setMessageStyle("incorrect");
-      setMessage("Väärä käyttäjätunnus tai salasana");
-      setTimeout(() => {
-        setMessage(null);
-        setMessageStyle("");
-      }, 3000);
     }
+    window.location.reload(false);
   };
 
   const handleAddUser = async (event) => {
@@ -60,17 +54,13 @@ const LoginPage = () => {
       setPassword("");
       console.log("logged in as", user);
     } catch (exception) {
-      console.log(exception);
+      const response = JSON.parse(exception.request.response);
+      window.confirm(response.error);
       setUser(null);
       setUsername("");
       setPassword("");
-      setMessageStyle("incorrect");
-      setMessage("Ei onnistunut");
-      setTimeout(() => {
-        setMessage(null);
-        setMessageStyle("");
-      }, 3000);
     }
+    window.location.reload(false);
   };
 
   if (user) {
