@@ -7,7 +7,9 @@ import LoginPage from "./LoginPage";
 import StatsPage from "./StatsPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { ButtonGroup, Container } from "react-bootstrap";
+import { ButtonGroup, Container, Badge } from "react-bootstrap";
+
+// Täytyy lisätä error handling, jos ei valintaa tai pakottaa valinta
 
 const LandingPage = () => {
   const defaultStyle = "button half_size_btn_normal";
@@ -71,27 +73,29 @@ const LandingPage = () => {
   };
 
   return (
-    <Container className="p-sm-3 p-0 align-items-center card_view">
-      <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
-        <Card.Body>
-          <ButtonGroup>
+    <Container className="mt-3 mb-5 col-lg-3 card_view">
+      <Card className="fs-4 d-flex mb-4 mx-auto card_view align-items-center">
+        <Card.Header className="card_view">
+          <Container className="p-2">
             <Button
-              className="d-grid gap-2 mx-auto w-100"
               variant="outline-dark"
+              size="sm"
               onClick={() => setView("Stats")}
             >
               Tilastot
             </Button>
             <Button
-              className="d-grid gap-2 mx-auto w-100"
               variant="outline-dark"
+              size="sm"
               onClick={() => handleLogout()}
             >
               Kirjaudu ulos
             </Button>
-          </ButtonGroup>
-          <Card.Title className="fs-5 d-flex mb-4 mx-auto card_view align-items-center">
-            Valitse kysymysten määrä
+          </Container>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title className="fs-5 mb-3">
+            <strong>Kysymysten määrä</strong>
           </Card.Title>
           <ButtonGroup>
             <Button
@@ -123,8 +127,9 @@ const LandingPage = () => {
               20
             </Button>
           </ButtonGroup>
-          <Card.Title className="fs-5 d-flex mb-4 mx-auto card_view align-items-center">
-            Valitse kategoria
+          <hr />
+          <Card.Title className="fs-5 mb-3">
+            <strong>Kategoria</strong>
           </Card.Title>
 
           <Button

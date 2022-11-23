@@ -6,7 +6,7 @@ import questionService from "../services/questions";
 import LoginPage from "./LoginPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { ButtonGroup, Container, Row, Table } from "react-bootstrap";
+import { ButtonGroup, Container, ListGroup, Row, Table } from "react-bootstrap";
 import LandingPage from "./LandingPage";
 import userService from "../services/user";
 
@@ -76,40 +76,59 @@ const StatsPage = () => {
     return <LandingPage />;
   }
 
-  // Tilastoille joku siistimpi esitytapa, taulukko tms.
-
   return (
-    <Container className="p-sm-3 p-0 align-items-center card_view">
-      <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
-        <Card.Body>
-          <ButtonGroup>
+    <Container className="mt-3 mb-5 col-lg-3 card_view">
+      <Card className="shadow card_view">
+        <Card.Header className="fs-4 d-flex mb-4 mx-auto card_view align-items-center">
+          <strong>Tilastot</strong>
+        </Card.Header>
+        <Card.Header>
+          <Container className="p-2">
             <Button
-              className="d-grid gap-2 mx-auto w-100"
               variant="outline-dark"
+              size="sm"
               onClick={() => setView("Landing")}
             >
               Takaisin
             </Button>
             <Button
-              className="d-grid gap-2 mx-auto w-100"
               variant="outline-dark"
+              size="sm"
               onClick={() => handleZero()}
             >
               Nollaa tilastot
             </Button>
-          </ButtonGroup>
-
-          <Card.Title
-            className="fs-4 d-flex mb-4 mx-auto card_view align-items-center"
-            style={{ height: "3rem" }}
-          >
-            <strong>Tilastot</strong>
-          </Card.Title>
-
-          <Row>Fysiikka: {physics}</Row>
-          <Row>Kemia: {chemistry}</Row>
-          <Row>Biologia: {biology}</Row>
-          <Row>Paras: {best}</Row>
+          </Container>
+        </Card.Header>
+        <Card.Body>
+          <Container className="d-flex flex-wrap">
+            <span>
+              <b>Fysiikka</b>
+            </span>
+            <span className="ms-auto my-sm-0 mt-2 text-muted">{physics}</span>
+          </Container>
+          <hr />
+          <Container className="d-flex flex-wrap">
+            <span>
+              <b>Kemia</b>
+            </span>
+            <span className="ms-auto my-sm-0 mt-2 text-muted">{chemistry}</span>
+          </Container>
+          <hr />
+          <Container className="d-flex flex-wrap">
+            <span>
+              <b>Biologia</b>
+            </span>
+            <span className="ms-auto my-sm-0 mt-2 text-muted">{biology}</span>
+          </Container>
+          <hr />
+          <Container className="d-flex flex-wrap">
+            <span>
+              <b>Paras</b>
+            </span>
+            <span className="ms-auto my-sm-0 mt-2 text-muted">{best}</span>
+          </Container>
+          <hr />
         </Card.Body>
       </Card>
     </Container>

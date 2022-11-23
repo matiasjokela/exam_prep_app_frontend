@@ -1,7 +1,6 @@
 //import Button from './Button'
 import loginService from "../services/login";
 import userService from "../services/user";
-import Notification from "./Notification";
 import { useState } from "react";
 import LandingPage from "./LandingPage";
 import { Form } from "react-bootstrap";
@@ -69,7 +68,7 @@ const LoginPage = () => {
 
   return (
     <Container id="login" className="mb-3 shadow rounded p-sm-4 col-sm-6">
-      <Form>
+      <Form onSubmit={handleLogin}>
         <Form.Group className="mb-3">
           <Form.Label>käyttäjätunnus</Form.Label>
           <Form.Control
@@ -81,11 +80,7 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button
-          className="form-button mb-3"
-          variant="primary"
-          onClick={(e) => handleLogin(e)}
-        >
+        <Button className="form-button mb-3" variant="primary" type="submit">
           Kirjaudu sisään
         </Button>
         <Button
