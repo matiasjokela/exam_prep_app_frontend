@@ -79,7 +79,7 @@ const LoginPage = () => {
 
   return (
     <Container id="login" className="mb-3 shadow rounded p-sm-4 col-sm-6">
-      <Form onSubmit={handleLogin}>
+      <Form>
         <Form.Group className="mb-3">
           <Form.Label>käyttäjätunnus</Form.Label>
           <Form.Control
@@ -91,8 +91,19 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button className="form-button mb-3" variant="primary" type="submit">
+        <Button
+          className="form-button mb-3"
+          variant="primary"
+          onClick={(e) => handleLogin(e)}
+        >
           Kirjaudu sisään
+        </Button>
+        <Button
+          className="form-button mb-3"
+          variant="secondary"
+          onClick={(e) => handleAddUser(e)}
+        >
+          Lisää käyttäjä
         </Button>
       </Form>
     </Container>

@@ -10,8 +10,6 @@ import { ButtonGroup, Container, Row, Table } from "react-bootstrap";
 import LandingPage from "./LandingPage";
 import userService from "../services/user";
 
-/* HUOM Joku bugi jäi, katso konsoli! */
-
 const StatsPage = () => {
   const [view, setView] = useState("Stats");
   const [user, setUser] = useState(null);
@@ -33,24 +31,23 @@ const StatsPage = () => {
   if (user && best === "Ei pelejä") {
     if (user.physicsTotal) {
       setPhysics(`${user.physicsCorrect} / ${user.physicsTotal} (
-			${(user.physicsCorrect / user.physicsTotal) * 100} %)`);
+			${Math.round((user.physicsCorrect / user.physicsTotal) * 100)} %)`);
     }
     if (user.chemistryTotal) {
       setChemistry(`${user.chemistryCorrect} / ${user.chemistryTotal} (
-			  ${(user.chemistryCorrect / user.chemistryTotal) * 100} %)`);
+			  ${Math.round((user.chemistryCorrect / user.chemistryTotal) * 100)} %)`);
     }
     if (user.biologyTotal) {
       setBiology(`${user.biologyCorrect} / ${user.biologyTotal} (
-			  ${(user.biologyCorrect / user.biologyTotal) * 100} %)`);
+			  ${Math.round((user.biologyCorrect / user.biologyTotal) * 100)} %)`);
     }
     if (user.bestTotal) {
       setBest(`${user.bestCorrect} / ${user.bestTotal} (
-			${(user.bestCorrect / user.bestTotal) * 100} %, 
+			${Math.round((user.bestCorrect / user.bestTotal) * 100)} %, 
 			${user.bestCategory})`);
     }
   }
 
-  // Miten saatiinkaan sivu refreshaamaan fiksusti
   const handleZero = () => {
     if (user && window.confirm("Haluatko varmasti poistaa kaikki tilastot")) {
       userService.update(
