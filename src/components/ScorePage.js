@@ -2,13 +2,13 @@ import LandingPage from "./LandingPage";
 //import Button from './Button'
 import { useState } from "react";
 import { useEffect } from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
 
 const ScorePage = ({ correct, total, category }) => {
   const [ok, setOk] = useState(0);
   const [user, setUser] = useState(null);
+  const [text, setText] = useState("Taidat tarvita vielä reilusti treeniä");
   let updatedFields;
   const localUser = JSON.parse(
     window.localStorage.getItem("loggedExamPrepUser")
@@ -16,6 +16,19 @@ const ScorePage = ({ correct, total, category }) => {
 
   useEffect(() => {
     userService.getById(localUser.id).then((response) => setUser(response));
+    if (correct / total === 1) {
+      setText("Täydellinen suoritus, hienoa!");
+    } else if (correct / total >= 0.8) {
+      if (category === "fysiikka") {
+        setText(`Taidat olla aikamoinen fysiikan maisteri!`);
+      } else {
+        setText(`Taidat olla aikamoinen ${category}n maisteri!`);
+      }
+    } else if (correct / total >= 0.6) {
+      setText("Kohtuullinen tulos, mutta pystyt parempaankin!");
+    } else if (correct / total >= 0.4) {
+      setText("Tuloksessa on parantamisen varaa, jatka treenejä!");
+    }
   }, []);
 
   console.log("user", user);
@@ -83,15 +96,26 @@ const ScorePage = ({ correct, total, category }) => {
   }
 
   return (
-    <div className="card_view">
-      <h2>Hello World!</h2>
-      <div>
-        Sait {correct} / {total} oikein
-      </div>
-      <Button className="btn-lg" variant="dark" onClick={() => setOk(1)}>
-        Ok
-      </Button>
-    </div>
+    <Container className="p-sm-3 p-0 align-items-center card_view">
+      <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
+        <Card.Body>
+          <Card.Title
+            className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
+            style={{ height: "12rem" }}
+          >
+            Sait {correct} / {total} oikein
+          </Card.Title>
+          <Card.Text>{text}</Card.Text>
+          <Button
+            className="d-grid gap-2 mx-auto w-100"
+            variant="outline-dark"
+            onClick={() => setOk(1)}
+          >
+            OK
+          </Button>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 

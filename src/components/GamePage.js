@@ -7,12 +7,13 @@ import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import ScorePage from "./ScorePage";
 import { ButtonGroup, Container } from "react-bootstrap";
+import { useEffect } from "react";
 
 // Mikä paras tapa näyttää valittu nappi keltaisena jne???
 
 const GamePage = ({ questions, length }) => {
-  const defaultStyle = "button button_normal";
-  const selectedStyle = "button button_selected";
+  const defaultStyle = "outline-dark";
+  const correctStyle = "outline-success";
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answer, setAnswer] = useState(null);
@@ -30,39 +31,42 @@ const GamePage = ({ questions, length }) => {
 
   // Tarviiko käyttää statea näihin kaikkiin vai normi muuttujia??
 
+  console.log("oikea: ", questions[index].answer);
+  console.log("message: ", messageStyle);
+
   const handleSelect = (selected) => {
     if (selected === "A") {
       setAnswer(questions[index].option_a);
-      setButtonStyles([
-        selectedStyle,
-        defaultStyle,
-        defaultStyle,
-        defaultStyle,
-      ]);
+      //   setButtonStyles([
+      //     selectedStyle,
+      //     defaultStyle,
+      //     defaultStyle,
+      //     defaultStyle,
+      //   ]);
     } else if (selected === "B") {
       setAnswer(questions[index].option_b);
-      setButtonStyles([
-        defaultStyle,
-        selectedStyle,
-        defaultStyle,
-        defaultStyle,
-      ]);
+      //   setButtonStyles([
+      //     defaultStyle,
+      //     selectedStyle,
+      //     defaultStyle,
+      //     defaultStyle,
+      //   ]);
     } else if (selected === "C") {
       setAnswer(questions[index].option_c);
-      setButtonStyles([
-        defaultStyle,
-        defaultStyle,
-        selectedStyle,
-        defaultStyle,
-      ]);
+      //   setButtonStyles([
+      //     defaultStyle,
+      //     defaultStyle,
+      //     selectedStyle,
+      //     defaultStyle,
+      //   ]);
     } else if (selected === "D") {
       setAnswer(questions[index].option_d);
-      setButtonStyles([
-        defaultStyle,
-        defaultStyle,
-        defaultStyle,
-        selectedStyle,
-      ]);
+      //   setButtonStyles([
+      //     defaultStyle,
+      //     defaultStyle,
+      //     defaultStyle,
+      //     selectedStyle,
+      //   ]);
     }
   };
 
@@ -111,29 +115,29 @@ const GamePage = ({ questions, length }) => {
 
           <Button
             className="d-grid gap-2 mx-auto w-100"
-            variant="outline-dark"
-            onClick={() => handleSelect("B")}
+            variant={buttonStyles[0]}
+            onClick={() => handleSelect("A")}
           >
             A: {questions[index].option_a}
           </Button>
           <Button
             className="d-grid gap-2 mx-auto w-100"
-            variant="outline-dark"
+            variant={buttonStyles[1]}
             onClick={() => handleSelect("B")}
           >
             B: {questions[index].option_b}
           </Button>
           <Button
             className="d-grid gap-2 mx-auto w-100"
-            variant="outline-dark"
-            onClick={() => handleSelect("B")}
+            variant={buttonStyles[2]}
+            onClick={() => handleSelect("C")}
           >
             C: {questions[index].option_c}
           </Button>
           <Button
             className="d-grid gap-2 mx-auto w-100"
-            variant="outline-dark"
-            onClick={() => handleSelect("B")}
+            variant={buttonStyles[3]}
+            onClick={() => handleSelect("D")}
           >
             D: {questions[index].option_d}
           </Button>

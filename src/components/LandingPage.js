@@ -63,8 +63,10 @@ const LandingPage = () => {
 
   const handleLogout = () => {
     console.log("click");
-    window.localStorage.removeItem("loggedExamPrepUser");
-    setView("Login");
+    if (window.confirm("Haluatko varmasti kirjautua ulos?")) {
+      window.localStorage.removeItem("loggedExamPrepUser");
+      setView("Login");
+    }
   };
 
   return (
