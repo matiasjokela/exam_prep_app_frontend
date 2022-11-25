@@ -6,7 +6,12 @@ import Row from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import ScorePage from "./ScorePage";
-import { ButtonGroup, Container } from "react-bootstrap";
+import {
+  ButtonGroup,
+  Container,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "react-bootstrap";
 import { useEffect } from "react";
 
 // Mikä paras tapa näyttää valittu nappi keltaisena jne???
@@ -116,39 +121,47 @@ const GamePage = ({ questions, length }) => {
           <Card.Subtitle className="mb-2 text-muted">
             Kysymys {index + 1} / {len}
           </Card.Subtitle>
-          <Button
-            className="d-grid gap-2 mx-auto w-100"
-            variant={buttonStyles[0]}
-            onClick={() => handleSelect("A")}
+          <ToggleButtonGroup
+            className="mx-auto w-100"
+            vertical
+            type="checkbox"
+            value={answer}
           >
-            A: {questions[index].option_a}
-          </Button>
-          <Button
-            className="d-grid gap-2 mx-auto w-100"
-            variant={buttonStyles[1]}
-            onClick={() => handleSelect("B")}
-          >
-            B: {questions[index].option_b}
-          </Button>
-          <Button
-            className="d-grid gap-2 mx-auto w-100"
-            variant={buttonStyles[2]}
-            onClick={() => handleSelect("C")}
-          >
-            C: {questions[index].option_c}
-          </Button>
-          <Button
-            className="d-grid gap-2 mx-auto w-100"
-            variant={buttonStyles[3]}
-            onClick={() => handleSelect("D")}
-          >
-            D: {questions[index].option_d}
-          </Button>
+            <ToggleButton
+              value={questions[index].option_a}
+              variant={buttonStyles[0]}
+              onClick={() => handleSelect("A")}
+            >
+              A: {questions[index].option_a}
+            </ToggleButton>
+            <ToggleButton
+              value={questions[index].option_b}
+              variant={buttonStyles[1]}
+              onClick={() => handleSelect("B")}
+            >
+              B: {questions[index].option_b}
+            </ToggleButton>
+            <ToggleButton
+              value={questions[index].option_c}
+              variant={buttonStyles[2]}
+              onClick={() => handleSelect("C")}
+            >
+              C: {questions[index].option_c}
+            </ToggleButton>
+            <ToggleButton
+              value={questions[index].option_d}
+              variant={buttonStyles[3]}
+              onClick={() => handleSelect("D")}
+            >
+              D: {questions[index].option_d}
+            </ToggleButton>
+          </ToggleButtonGroup>
 
           <Button
             className="d-grid gap-2 mx-auto w-100"
             variant="secondary"
             onClick={checkAnswer}
+            disabled={!answer}
           >
             Lähetä vastaus
           </Button>

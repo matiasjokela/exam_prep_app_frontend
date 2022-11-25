@@ -9,9 +9,6 @@ import { useState } from "react";
 // Kemia 2020 kevät viimeisin lisätty
 // Biologia 2020 syksy viimeisin lisätty
 
-// Muista laittaa Alertit takaisin
-// Muista tehdä toiminto käyttäjän lisäämiselle
-
 const App = () => {
   let valid = false;
   const [allUsers, setAllUsers] = useState([]);

@@ -80,12 +80,18 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button className="form-button mb-3" variant="primary" type="submit">
+        <Button
+          className="form-button mb-3"
+          variant="primary"
+          type="submit"
+          disabled={!username || !password}
+        >
           Kirjaudu sisään
         </Button>
         <Button
           className="form-button mb-3"
           variant="secondary"
+          disabled={!username || !password}
           onClick={(e) => handleAddUser(e)}
         >
           Lisää käyttäjä

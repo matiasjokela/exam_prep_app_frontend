@@ -7,7 +7,12 @@ import LoginPage from "./LoginPage";
 import StatsPage from "./StatsPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { ButtonGroup, Container, Badge } from "react-bootstrap";
+import {
+  ButtonGroup,
+  Container,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "react-bootstrap";
 
 // Täytyy lisätä error handling, jos ei valintaa tai pakottaa valinta
 
@@ -17,7 +22,7 @@ const LandingPage = () => {
   const [questions, setQuestions] = useState([]);
   const [view, setView] = useState("Landing");
   const [category, setCategory] = useState(null);
-  const [questionCount, setQuestionCount] = useState(20);
+  const [questionCount, setQuestionCount] = useState(0);
   const [categoryStyles, setCategoryStyles] = useState([
     defaultStyle,
     defaultStyle,
@@ -64,12 +69,19 @@ const LandingPage = () => {
     return <StatsPage />;
   }
 
+  console.log("count", questionCount);
+
   const handleLogout = () => {
     console.log("click");
     if (window.confirm("Haluatko varmasti kirjautua ulos?")) {
       window.localStorage.removeItem("loggedExamPrepUser");
       setView("Login");
     }
+  };
+
+  const handleQuestionChange = (value) => {
+    setQuestionCount(value);
+    console.log("click", value);
   };
 
   return (
@@ -97,65 +109,81 @@ const LandingPage = () => {
           <Card.Title className="fs-5 mb-3">
             <strong>Kysymysten määrä</strong>
           </Card.Title>
-          <ButtonGroup>
-            <Button
+          <ToggleButtonGroup
+            className="mx-auto w-100"
+            type="checkbox"
+            value={questionCount}
+          >
+            <ToggleButton
               className="d-grid gap-2 mx-auto w-100"
+              value={5}
               variant="outline-dark"
               onClick={() => setQuestionCount(5)}
             >
               5
-            </Button>
-            <Button
+            </ToggleButton>
+            <ToggleButton
               className="d-grid gap-2 mx-auto w-100"
+              value={10}
               variant="outline-dark"
               onClick={() => setQuestionCount(10)}
             >
               10
-            </Button>
-            <Button
+            </ToggleButton>
+            <ToggleButton
               className="d-grid gap-2 mx-auto w-100"
+              value={15}
               variant="outline-dark"
               onClick={() => setQuestionCount(15)}
             >
               15
-            </Button>
-            <Button
+            </ToggleButton>
+            <ToggleButton
               className="d-grid gap-2 mx-auto w-100"
+              value={20}
               variant="outline-dark"
               onClick={() => setQuestionCount(20)}
             >
               20
-            </Button>
-          </ButtonGroup>
+            </ToggleButton>
+          </ToggleButtonGroup>
+
           <hr />
           <Card.Title className="fs-5 mb-3">
             <strong>Kategoria</strong>
           </Card.Title>
-
-          <Button
-            className="d-grid gap-2 mx-auto w-100"
-            variant="outline-dark"
-            onClick={() => handleSelect("fysiikka")}
+          <ToggleButtonGroup
+            className="mx-auto w-100"
+            vertical
+            type="checkbox"
+            value={category}
           >
-            Fysiikka
-          </Button>
-          <Button
-            className="d-grid gap-2 mx-auto w-100"
-            variant="outline-dark"
-            onClick={() => handleSelect("biologia")}
-          >
-            Biologia
-          </Button>
-          <Button
-            className="d-grid gap-2 mx-auto w-100"
-            variant="outline-dark"
-            onClick={() => handleSelect("kemia")}
-          >
-            Kemia
-          </Button>
+            <ToggleButton
+              value={"fysiikka"}
+              variant="outline-dark"
+              onClick={() => handleSelect("fysiikka")}
+            >
+              Fysiikka
+            </ToggleButton>
+            <ToggleButton
+              value={"biologia"}
+              variant="outline-dark"
+              onClick={() => handleSelect("biologia")}
+            >
+              Biologia
+            </ToggleButton>
+            <ToggleButton
+              value={"kemia"}
+              variant="outline-dark"
+              onClick={() => handleSelect("kemia")}
+            >
+              Kemia
+            </ToggleButton>
+          </ToggleButtonGroup>
           <Button
             className="d-grid gap-2 mx-auto w-100"
             variant="dark"
+            disabled={!questionCount || !category}
             onClick={() => setView("Game")}
           >
             Pelaa
