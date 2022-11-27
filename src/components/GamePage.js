@@ -37,7 +37,6 @@ const GamePage = ({ questions, length }) => {
   // Tarviiko käyttää statea näihin kaikkiin vai normi muuttujia??
 
   console.log("oikea: ", questions[index].answer);
-  console.log("message: ", messageStyle);
 
   const handleSelect = (selected) => {
     if (selected === "A") {
@@ -71,7 +70,7 @@ const GamePage = ({ questions, length }) => {
     } else if (questions[index].option_c === answer) {
       setStyleC(incorrectStyle);
     } else {
-      setStyleD(correctStyle);
+      setStyleD(incorrectStyle);
     }
   };
 
@@ -118,12 +117,12 @@ const GamePage = ({ questions, length }) => {
     );
   }
   return (
-    <Container className="p-sm-3 p-0 card_view">
+    <Container className="p-sm-3 p-0 game_view">
       <Alert variant={messageStyle}>{message}</Alert>
-      <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
+      <Card className="mb-3 mx-auto w-100 shadow game_view align-items-center">
         <Card.Body>
           <Card.Title
-            className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
+            className="fs-5 d-flex mb-4 mx-auto game_view align-items-center"
             style={{ height: "12rem" }}
           >
             {questions[index].question}

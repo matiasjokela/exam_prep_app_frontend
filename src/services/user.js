@@ -33,4 +33,10 @@ const update = async (updatedFields, id) => {
   return response.data;
 };
 
-export default { addUser, getAll, setToken, getById, update };
+const deleteUser = async (id) => {
+  const url = baseUrl.concat("/", id);
+  const response = await axios.delete(url);
+  return response.data;
+};
+
+export default { addUser, getAll, setToken, getById, update, deleteUser };

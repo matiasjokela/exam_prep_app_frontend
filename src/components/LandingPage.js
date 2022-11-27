@@ -3,31 +3,34 @@ import { useState, useEffect } from "react";
 //import ButtonList from "./ButtonList";
 import GamePage from "./GamePage";
 import questionService from "../services/questions";
+import userService from "../services/user";
 import LoginPage from "./LoginPage";
 import StatsPage from "./StatsPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {
-  ButtonGroup,
   Container,
   ToggleButton,
   ToggleButtonGroup,
+  Dropdown,
+  Nav,
 } from "react-bootstrap";
 
 // Täytyy lisätä error handling, jos ei valintaa tai pakottaa valinta
 
 const LandingPage = () => {
-  const defaultStyle = "button half_size_btn_normal";
-  const selectedStyle = "button half_size_btn_selected";
   const [questions, setQuestions] = useState([]);
   const [view, setView] = useState("Landing");
   const [category, setCategory] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
-  const [categoryStyles, setCategoryStyles] = useState([
-    defaultStyle,
-    defaultStyle,
-    defaultStyle,
-  ]);
+  let user;
+
+  // Tämä täytyy muokata fiksummaksi!!!!
+  try {
+    user = JSON.parse(window.localStorage.getItem("loggedExamPrepUser"));
+  } catch (e) {
+    console.log(e);
+  }
 
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
@@ -36,13 +39,10 @@ const LandingPage = () => {
   const handleSelect = (selected) => {
     if (selected === "fysiikka") {
       setCategory("fysiikka");
-      setCategoryStyles([selectedStyle, defaultStyle, defaultStyle]);
     } else if (selected === "biologia") {
       setCategory("biologia");
-      setCategoryStyles([defaultStyle, selectedStyle, defaultStyle]);
     } else if (selected === "kemia") {
       setCategory("kemia");
-      setCategoryStyles([defaultStyle, defaultStyle, selectedStyle]);
     }
   };
   // if (category === 'matematiikka') {
@@ -69,42 +69,45 @@ const LandingPage = () => {
     return <StatsPage />;
   }
 
-  console.log("count", questionCount);
-
   const handleLogout = () => {
-    console.log("click");
-    if (window.confirm("Haluatko varmasti kirjautua ulos?")) {
+    window.localStorage.removeItem("loggedExamPrepUser");
+    setView("Login");
+  };
+
+  const handleDelete = () => {
+    if (window.confirm("Haluatko varmasti poistaa käyttäjätilisi?")) {
       window.localStorage.removeItem("loggedExamPrepUser");
+      userService.deleteUser(user.id);
       setView("Login");
     }
   };
 
-  const handleQuestionChange = (value) => {
-    setQuestionCount(value);
-    console.log("click", value);
-  };
-
   return (
-    <Container className="mt-3 mb-5 col-lg-3 card_view">
-      <Card className="fs-4 d-flex mb-4 mx-auto card_view align-items-center">
-        <Card.Header className="card_view">
-          <Container className="p-2">
-            <Button
+    <Container style={{ width: "22rem" }}>
+      <Card className="card_view shadow">
+        <Card.Title className="mt-3 ms-3 card_view">
+          <Dropdown>
+            <Dropdown.Toggle
+              className="card_view"
               variant="outline-dark"
               size="sm"
-              onClick={() => setView("Stats")}
             >
-              Tilastot
-            </Button>
-            <Button
-              variant="outline-dark"
-              size="sm"
-              onClick={() => handleLogout()}
-            >
-              Kirjaudu ulos
-            </Button>
-          </Container>
-        </Card.Header>
+              {user.username}
+              <Dropdown.Menu variant="dark">
+                <Dropdown.Item onClick={() => setView("Stats")}>
+                  Tilastot
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleLogout()}>
+                  Kirjaudu ulos
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleDelete()}>
+                  Poista tilini
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown.Toggle>
+          </Dropdown>
+        </Card.Title>
+
         <Card.Body>
           <Card.Title className="fs-5 mb-3">
             <strong>Kysymysten määrä</strong>
@@ -185,43 +188,17 @@ const LandingPage = () => {
 
 export default LandingPage;
 
-// OMA CSS
-
-/*<div className="card_view">
-<Button
-  text="kirjaudu ulos"
-  style="button button_logout"
-  handleClick={handleLogout}
-/>
-<div className="content_box">
-  <h2>Valitse aihe</h2>
-</div>
-<div>
-  <Button
-	style={categoryStyles[0]}
-	text="Fysiikka"
-	handleClick={() => handleSelect("fysiikka")}
-  />
-  <Button
-	style={categoryStyles[1]}
-	text="Biologia"
-	handleClick={() => handleSelect("biologia")}
-  />
-</div>
-<div>
-  <Button
-	style={categoryStyles[2]}
-	text="Kemia"
-	handleClick={() => handleSelect("kemia")}
-  />
-</div>
-{!category ? (
-  <div>valitse aihe</div>
-) : (
-  <Button
-	text="Pelaa"
-	style="button button_normal"
-	handleClick={() => setView("Game")}
-  />
-)}
-</div>*/
+/*            <DropdownButton
+              className="card_view"
+              title={user.user.username}
+              variant="outline-dark"
+              menuVariant="dark"
+              size="sm"
+            >
+              <Dropdown.Item onClick={() => handleLogout()}>
+                Kirjaudu ulos
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleDelete()}>
+                Poista tilini
+              </Dropdown.Item>
+            </DropdownButton>*/

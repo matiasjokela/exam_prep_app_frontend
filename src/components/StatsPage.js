@@ -77,12 +77,12 @@ const StatsPage = () => {
   }
 
   return (
-    <Container className="mt-3 mb-5 col-lg-3 card_view">
-      <Card className="shadow card_view">
-        <Card.Header className="fs-4 d-flex mb-4 mx-auto card_view align-items-center">
+    <Container className="mb-4" style={{ width: "22rem" }}>
+      <Card className="shadow game_view">
+        <Card.Header className="fs-4 d-flex mb-4 mx-auto game_view align-items-center">
           <strong>Tilastot</strong>
         </Card.Header>
-        <Card.Header>
+        <Card.Header className="game_view">
           <Container className="p-2">
             <Button
               variant="outline-dark"

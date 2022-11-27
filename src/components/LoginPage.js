@@ -41,17 +41,21 @@ const LoginPage = () => {
     event.preventDefault();
     console.log("click", username, password);
     try {
-      const user = await userService.addUser({
-        username,
-        password,
-      });
-      console.log(user);
-      window.localStorage.setItem("loggedExamPrepUser", JSON.stringify(user));
-      userService.setToken(user.token);
-      setUser(user);
-      setUsername("");
-      setPassword("");
-      console.log("logged in as", user);
+      if (
+        window.confirm(`Olet luomassa käyttäjää ${username}, haluatko jatkaa?`)
+      ) {
+        const user = await userService.addUser({
+          username,
+          password,
+        });
+        console.log(user);
+        window.localStorage.setItem("loggedExamPrepUser", JSON.stringify(user));
+        userService.setToken(user.token);
+        setUser(user);
+        setUsername("");
+        setPassword("");
+        console.log("logged in as", user);
+      }
     } catch (exception) {
       const response = JSON.parse(exception.request.response);
       window.confirm(response.error);

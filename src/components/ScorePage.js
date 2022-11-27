@@ -96,18 +96,23 @@ const ScorePage = ({ correct, total, category }) => {
   }
 
   return (
-    <Container className="p-sm-3 p-0 align-items-center card_view">
+    <Container style={{ width: "22rem" }}>
       <Card className="mb-3 mx-auto w-100 shadow card_view align-items-center">
+        <Card.Header className="fs-4 mt-3 game_view">
+          <strong>
+            {" "}
+            Sait {correct} / {total} oikein
+          </strong>
+        </Card.Header>
         <Card.Body>
-          <Card.Title
-            className="fs-5 d-flex mb-4 mx-auto card_view align-items-center"
+          <Card.Text
+            className="d-flex mb-4 mx-auto card_view align-items-center"
             style={{ height: "12rem" }}
           >
-            Sait {correct} / {total} oikein
-          </Card.Title>
-          <Card.Text>{text}</Card.Text>
+            {text}
+          </Card.Text>
           <Button
-            className="d-grid gap-2 mx-auto w-100"
+            className="mb-3 mx-auto w-100"
             variant="outline-dark"
             onClick={() => setOk(1)}
           >
