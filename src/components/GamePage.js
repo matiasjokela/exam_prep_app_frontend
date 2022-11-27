@@ -18,18 +18,18 @@ import { useEffect } from "react";
 
 const GamePage = ({ questions, length }) => {
   const defaultStyle = "outline-dark";
-  const correctStyle = "outline-success";
+  const correctStyle = "success";
+  const incorrectStyle = "danger";
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answer, setAnswer] = useState(null);
   const [message, setMessage] = useState(null);
   const [messageStyle, setMessageStyle] = useState("");
-  const [buttonStyles, setButtonStyles] = useState([
-    defaultStyle,
-    defaultStyle,
-    defaultStyle,
-    defaultStyle,
-  ]);
+  const [styleA, setStyleA] = useState(defaultStyle);
+  const [styleB, setStyleB] = useState(defaultStyle);
+  const [styleC, setStyleC] = useState(defaultStyle);
+  const [styleD, setStyleD] = useState(defaultStyle);
+
   let len;
 
   questions.length < length ? (len = questions.length) : (len = length);
@@ -42,60 +42,70 @@ const GamePage = ({ questions, length }) => {
   const handleSelect = (selected) => {
     if (selected === "A") {
       setAnswer(questions[index].option_a);
-      //   setButtonStyles([
-      //     selectedStyle,
-      //     defaultStyle,
-      //     defaultStyle,
-      //     defaultStyle,
-      //   ]);
     } else if (selected === "B") {
       setAnswer(questions[index].option_b);
-      //   setButtonStyles([
-      //     defaultStyle,
-      //     selectedStyle,
-      //     defaultStyle,
-      //     defaultStyle,
-      //   ]);
     } else if (selected === "C") {
       setAnswer(questions[index].option_c);
-      //   setButtonStyles([
-      //     defaultStyle,
-      //     defaultStyle,
-      //     selectedStyle,
-      //     defaultStyle,
-      //   ]);
     } else if (selected === "D") {
       setAnswer(questions[index].option_d);
-      //   setButtonStyles([
-      //     defaultStyle,
-      //     defaultStyle,
-      //     defaultStyle,
-      //     selectedStyle,
-      //   ]);
     }
   };
 
+  const updateCorrect = () => {
+    if (questions[index].option_a === questions[index].answer) {
+      setStyleA(correctStyle);
+    } else if (questions[index].option_b === questions[index].answer) {
+      setStyleB(correctStyle);
+    } else if (questions[index].option_c === questions[index].answer) {
+      setStyleC(correctStyle);
+    } else {
+      setStyleD(correctStyle);
+    }
+  };
+
+  const updateIncorrect = () => {
+    if (questions[index].option_a === answer) {
+      setStyleA(incorrectStyle);
+    } else if (questions[index].option_b === answer) {
+      setStyleB(incorrectStyle);
+    } else if (questions[index].option_c === answer) {
+      setStyleC(incorrectStyle);
+    } else {
+      setStyleD(correctStyle);
+    }
+  };
+
+  const resetStyles = () => {
+    setStyleA(defaultStyle);
+    setStyleB(defaultStyle);
+    setStyleC(defaultStyle);
+    setStyleD(defaultStyle);
+  };
+
   const checkAnswer = () => {
+    updateCorrect();
     if (answer === questions[index].answer) {
       setCorrect(correct + 1);
       setMessageStyle("success");
       setMessage("Oikea vastaus!");
       setTimeout(() => {
+        resetStyles();
         setMessage(null);
         setMessageStyle("");
         setIndex(index + 1);
-      }, 500);
+      }, 3000);
     } else {
+      updateIncorrect();
       setMessageStyle("danger");
       setMessage(`Väärin meni, oikea vastaus ${questions[index].answer}`);
       setTimeout(() => {
+        resetStyles();
         setMessage(null);
         setMessageStyle("");
         setIndex(index + 1);
-      }, 500);
+      }, 3000);
     }
     setAnswer(null);
-    setButtonStyles([defaultStyle, defaultStyle, defaultStyle, defaultStyle]);
   };
 
   if (index === len) {
@@ -129,28 +139,32 @@ const GamePage = ({ questions, length }) => {
           >
             <ToggleButton
               value={questions[index].option_a}
-              variant={buttonStyles[0]}
+              variant={styleA}
+              disabled={message}
               onClick={() => handleSelect("A")}
             >
               A: {questions[index].option_a}
             </ToggleButton>
             <ToggleButton
               value={questions[index].option_b}
-              variant={buttonStyles[1]}
+              variant={styleB}
+              disabled={message}
               onClick={() => handleSelect("B")}
             >
               B: {questions[index].option_b}
             </ToggleButton>
             <ToggleButton
               value={questions[index].option_c}
-              variant={buttonStyles[2]}
+              variant={styleC}
+              disabled={message}
               onClick={() => handleSelect("C")}
             >
               C: {questions[index].option_c}
             </ToggleButton>
             <ToggleButton
               value={questions[index].option_d}
-              variant={buttonStyles[3]}
+              variant={styleD}
+              disabled={message}
               onClick={() => handleSelect("D")}
             >
               D: {questions[index].option_d}
@@ -172,82 +186,3 @@ const GamePage = ({ questions, length }) => {
 };
 
 export default GamePage;
-
-// OMA CSS
-
-/*<div className="card_view">
-<Notification style={messageStyle} message={message} />
-<div className="content_box">
-  <div className="question">
-	<div> {questions[index].header} </div>
-	<div>{questions[index].question}</div>
-  </div>
-</div>
-<Button
-  text={questions[index].option_a}
-  handleClick={() => handleSelect("A")}
-  style={buttonStyles[0]}
-/>
-<Button
-  text={questions[index].option_b}
-  handleClick={() => handleSelect("B")}
-  style={buttonStyles[1]}
-/>
-<Button
-  text={questions[index].option_c}
-  handleClick={() => handleSelect("C")}
-  style={buttonStyles[2]}
-/>
-<Button
-  text={questions[index].option_d}
-  handleClick={() => handleSelect("D")}
-  style={buttonStyles[3]}
-/>
-<Button
-  text="Lähetä vastaus"
-  handleClick={checkAnswer}
-  style="button button_submit"
-/>
-</div>*/
-
-// Aikaisempi Bootstrap
-
-/*<Card className="mx-auto" style={{ width: "18rem", height: "18rem" }}>
-<div className="text-center">
-  <Alert variant={messageStyle}>{message}</Alert>
-  <h2>{questions[index].question}</h2>
-  <div className="d-grid gap-2">
-	<Button
-	  className="btn-lg"
-	  variant={buttonStyles[0]}
-	  onClick={() => handleSelect("A")}
-	>
-	  A: {questions[index].option_a}
-	</Button>
-	<Button
-	  className="btn-lg"
-	  variant={buttonStyles[1]}
-	  onClick={() => handleSelect("B")}
-	>
-	  B: {questions[index].option_b}
-	</Button>
-	<Button
-	  className="btn-lg"
-	  variant={buttonStyles[2]}
-	  onClick={() => handleSelect("C")}
-	>
-	  C: {questions[index].option_c}
-	</Button>
-	<Button
-	  className="btn-lg"
-	  variant={buttonStyles[3]}
-	  onClick={() => handleSelect("D")}
-	>
-	  D: {questions[index].option_d}
-	</Button>
-	<Button className="btn-lg" variant="dark" onClick={checkAnswer}>
-	  Lähetä vastaus
-	</Button>
-  </div>
-</div>
-</Card>*/

@@ -115,15 +115,6 @@ const LandingPage = () => {
             value={questionCount}
           >
             <ToggleButton
-              className="d-grid gap-2 mx-auto w-100"
-              value={5}
-              variant="outline-dark"
-              onClick={() => setQuestionCount(5)}
-            >
-              5
-            </ToggleButton>
-            <ToggleButton
-              className="d-grid gap-2 mx-auto w-100"
               value={10}
               variant="outline-dark"
               onClick={() => setQuestionCount(10)}
@@ -131,7 +122,6 @@ const LandingPage = () => {
               10
             </ToggleButton>
             <ToggleButton
-              className="d-grid gap-2 mx-auto w-100"
               value={15}
               variant="outline-dark"
               onClick={() => setQuestionCount(15)}
@@ -139,7 +129,6 @@ const LandingPage = () => {
               15
             </ToggleButton>
             <ToggleButton
-              className="d-grid gap-2 mx-auto w-100"
               value={20}
               variant="outline-dark"
               onClick={() => setQuestionCount(20)}
