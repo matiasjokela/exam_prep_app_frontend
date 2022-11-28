@@ -6,14 +6,15 @@ import questionService from "../services/questions";
 import userService from "../services/user";
 import LoginPage from "./LoginPage";
 import StatsPage from "./StatsPage";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import { useSelector, useDispatch } from "react-redux";
+import { checkUser } from "../reducers/userReducer";
 import {
   Container,
   ToggleButton,
   ToggleButtonGroup,
   Dropdown,
-  Nav,
+  Card,
+  Button,
 } from "react-bootstrap";
 
 // Täytyy lisätä error handling, jos ei valintaa tai pakottaa valinta
@@ -31,6 +32,7 @@ const LandingPage = () => {
   } catch (e) {
     console.log(e);
   }
+  console.log("user", user);
 
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
