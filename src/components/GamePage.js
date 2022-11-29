@@ -14,8 +14,6 @@ import {
 } from "react-bootstrap";
 import { useEffect } from "react";
 
-// Mikä paras tapa näyttää valittu nappi keltaisena jne???
-
 const GamePage = ({ questions, length }) => {
   const defaultStyle = "outline-dark";
   const correctStyle = "success";

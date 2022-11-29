@@ -20,6 +20,13 @@ const checkUser = (local) => {
   };
 };
 
+const updateStats = (id) => {
+  return async (dispatch) => {
+    const user = await userService.getById(id);
+    dispatch(setUser(user));
+  };
+};
+
 const initialState = null;
 
 const reducer = (state = initialState, action) => {
@@ -32,6 +39,6 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export { checkUser };
+export { checkUser, updateStats };
 
 export default reducer;

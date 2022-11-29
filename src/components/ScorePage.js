@@ -13,6 +13,8 @@ const ScorePage = ({ correct, total, category }) => {
 
   const user = useSelector((state) => state.user);
 
+  console.log("täs");
+
   useEffect(() => {
     if (correct / total === 1) {
       setText("Täydellinen suoritus, hienoa!");

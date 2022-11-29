@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import LandingPage from "./LandingPage";
 import userService from "../services/user";
 import { useSelector, useDispatch } from "react-redux";
+import { updateStats } from "../reducers/userReducer";
 
 const StatsPage = () => {
   const [view, setView] = useState("Stats");
@@ -12,7 +13,12 @@ const StatsPage = () => {
   const [chemistry, setChemistry] = useState("Ei pelejä");
   const [biology, setBiology] = useState("Ei pelejä");
   const [best, setBest] = useState("Ei pelejä");
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log("user", user);
+  useEffect(() => {
+    dispatch(updateStats(user.id));
+  }, []); //////
 
   if (user && best === "Ei pelejä") {
     if (user.physicsTotal) {
@@ -56,7 +62,7 @@ const StatsPage = () => {
       setBest("Ei pelejä");
     }
   };
-
+  //
   if (view === "Landing") {
     return <LandingPage />;
   }
