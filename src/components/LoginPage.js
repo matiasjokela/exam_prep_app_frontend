@@ -22,7 +22,6 @@ const LoginPage = () => {
       });
       console.log(user);
       window.localStorage.setItem("loggedExamPrepUser", JSON.stringify(user));
-      userService.setToken(user.token);
       setUser(user);
       setUsername("");
       setPassword("");
@@ -50,7 +49,6 @@ const LoginPage = () => {
         });
         console.log(user);
         window.localStorage.setItem("loggedExamPrepUser", JSON.stringify(user));
-        userService.setToken(user.token);
         setUser(user);
         setUsername("");
         setPassword("");

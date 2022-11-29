@@ -9,14 +9,11 @@ const setUser = (user) => {
 
 const checkUser = (local) => {
   return async (dispatch) => {
-    const allUsers = await userService.getAll();
-    if (local) {
-      allUsers.map((user) => {
-        if (user.id === local.id) {
-          console.log("jee.jee", user);
-          dispatch(setUser(user));
-        }
-      });
+    const response = await userService.checkToken(local.token);
+    let user;
+    if (response && response.data) {
+      user = await userService.getById(response.data);
+      dispatch(setUser(user));
     } else {
       dispatch(setUser(null));
     }

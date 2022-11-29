@@ -1,32 +1,18 @@
 import { useState, useEffect } from "react";
-//import Button from "./Button";
-//import ButtonList from "./ButtonList";
-import GamePage from "./GamePage";
-import questionService from "../services/questions";
-import LoginPage from "./LoginPage";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { ButtonGroup, Container, ListGroup, Row, Table } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import LandingPage from "./LandingPage";
 import userService from "../services/user";
+import { useSelector, useDispatch } from "react-redux";
 
 const StatsPage = () => {
   const [view, setView] = useState("Stats");
-  const [user, setUser] = useState(null);
   const [physics, setPhysics] = useState("Ei pelejä");
   const [chemistry, setChemistry] = useState("Ei pelejä");
   const [biology, setBiology] = useState("Ei pelejä");
   const [best, setBest] = useState("Ei pelejä");
-
-  const localUser = JSON.parse(
-    window.localStorage.getItem("loggedExamPrepUser")
-  ); // Tee tämä staten avulla mieluummin??
-
-  useEffect(() => {
-    userService.getById(localUser.id).then((response) => {
-      setUser(response);
-    });
-  }, []);
+  const user = useSelector((state) => state.user);
 
   if (user && best === "Ei pelejä") {
     if (user.physicsTotal) {
@@ -68,7 +54,6 @@ const StatsPage = () => {
       setChemistry("Ei pelejä");
       setBiology("Ei pelejä");
       setBest("Ei pelejä");
-      setUser(null);
     }
   };
 

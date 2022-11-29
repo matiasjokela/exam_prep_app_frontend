@@ -1,16 +1,6 @@
 import axios from "axios";
 const baseUrl = "/api/users";
 
-let token = null;
-let config;
-
-const setToken = (newToken) => {
-  token = `bearer ${newToken}`;
-  config = {
-    headers: { Authorization: token },
-  };
-};
-
 const addUser = async (credentials) => {
   const response = await axios.post(baseUrl, credentials);
   return response.data;
@@ -39,4 +29,15 @@ const deleteUser = async (id) => {
   return response.data;
 };
 
-export default { addUser, getAll, setToken, getById, update, deleteUser };
+const checkToken = async (token) => {
+  const url = baseUrl.concat("/token");
+  let response = null;
+  try {
+    response = await axios.post(url, { token });
+  } catch (e) {
+    console.log(e);
+  }
+  return response;
+};
+
+export default { addUser, getAll, getById, update, deleteUser, checkToken };

@@ -12,31 +12,23 @@ import { checkUser } from "./reducers/userReducer";
 // Biologia 2020 syksy viimeisin lisätty
 
 const App = () => {
-  let valid = true;
   const dispatch = useDispatch();
-  //   const [allUsers, setAllUsers] = useState([]);
+  const user = useSelector((state) => state.user);
   let local = null;
   try {
     local = JSON.parse(window.localStorage.getItem("loggedExamPrepUser"));
   } catch (e) {
     console.log(e);
   }
-  console.log(local);
 
   useEffect(() => {
-    dispatch(checkUser(local));
+    if (local && local.token) {
+      const token = local.token;
+      dispatch(checkUser({ token }));
+    }
   }, []);
 
-  //   if (local) {
-  //     allUsers.map((user) => {
-  //       if (user.id === local.id) {
-  //         console.log("jee", user);
-  //         valid = true;
-  //       }
-  //     });
-  //   }
-
-  return <div>{!valid ? <LoginPage /> : <LandingPage />}</div>;
+  return <div>{!user ? <LoginPage /> : <LandingPage />}</div>;
 };
 
 export default App;

@@ -4,18 +4,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
+import { useSelector, useDispatch } from "react-redux";
 
 const ScorePage = ({ correct, total, category }) => {
   const [ok, setOk] = useState(0);
-  const [user, setUser] = useState(null);
   const [text, setText] = useState("Taidat tarvita vielä reilusti treeniä");
   let updatedFields;
-  const localUser = JSON.parse(
-    window.localStorage.getItem("loggedExamPrepUser")
-  ); // Tee tämä staten avulla mieluummin??
+
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    userService.getById(localUser.id).then((response) => setUser(response));
     if (correct / total === 1) {
       setText("Täydellinen suoritus, hienoa!");
     } else if (correct / total >= 0.8) {
@@ -31,7 +29,6 @@ const ScorePage = ({ correct, total, category }) => {
     }
   }, []);
 
-  console.log("user", user);
   if (category === "fysiikka" && user) {
     if (
       !user.bestTotal ||

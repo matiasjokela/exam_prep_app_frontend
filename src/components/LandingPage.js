@@ -24,16 +24,7 @@ const LandingPage = () => {
   const [view, setView] = useState("Landing");
   const [category, setCategory] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
-  let user;
-
-  // Tämä täytyy muokata fiksummaksi!!!!
-  try {
-    user = JSON.parse(window.localStorage.getItem("loggedExamPrepUser"));
-  } catch (e) {
-    console.log(e);
-  }
-  console.log("user", user);
-
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
   }, []);
