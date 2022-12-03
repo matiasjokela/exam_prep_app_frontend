@@ -5,6 +5,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkUser } from "./reducers/userReducer";
+import { Link, Routes, Route, useMatch, Navigate } from "react-router-dom";
+import StatsPage from "./components/StatsPage";
+import GamePage from "./components/GamePage";
+import ScorePage from "./components/ScorePage";
 
 // Kysymykset
 // Fysiikka 2020 syksy viimeisin lisätty
@@ -12,23 +16,19 @@ import { checkUser } from "./reducers/userReducer";
 // Biologia 2020 syksy viimeisin lisätty
 
 const App = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  let local = null;
-  try {
-    local = JSON.parse(window.localStorage.getItem("loggedExamPrepUser"));
-  } catch (e) {
-    console.log(e);
-  }
-
-  useEffect(() => {
-    if (local && local.token) {
-      const token = local.token;
-      dispatch(checkUser({ token }));
-    }
-  }, []);
-
-  return <div>{!user ? <LoginPage /> : <LandingPage />}</div>;
+  return (
+    //kommentti
+    <div>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/stats" element={<StatsPage />} />
+        <Route path="/game" element={<GamePage />} />
+        <Route path="/score" element={<ScorePage />} />
+      </Routes>
+    </div>
+    //<div>{!user ? <LoginPage /> : <LandingPage />}</div>
+  );
 };
 
 export default App;

@@ -7,7 +7,6 @@ import userService from "../services/user";
 import LoginPage from "./LoginPage";
 import StatsPage from "./StatsPage";
 import { useSelector, useDispatch } from "react-redux";
-import { checkUser } from "../reducers/userReducer";
 import {
   Container,
   ToggleButton,
@@ -16,8 +15,7 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
-
-// Täytyy lisätä error handling, jos ei valintaa tai pakottaa valinta
+import { Link, Routes, Route, useMatch, Navigate } from "react-router-dom";
 
 const LandingPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -25,10 +23,12 @@ const LandingPage = () => {
   const [category, setCategory] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
   const user = useSelector((state) => state.user);
+
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
   }, []);
 
+  console.log("user", user);
   const handleSelect = (selected) => {
     if (selected === "fysiikka") {
       setCategory("fysiikka");
@@ -85,7 +85,7 @@ const LandingPage = () => {
               variant="outline-dark"
               size="sm"
             >
-              {user.username}
+              {user ? user.username : <Navigate replace={true} to="/login" />}
               <Dropdown.Menu variant="dark">
                 <Dropdown.Item onClick={() => setView("Stats")}>
                   Tilastot
