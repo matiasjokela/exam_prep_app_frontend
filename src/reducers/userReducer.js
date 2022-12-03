@@ -20,9 +20,9 @@ const checkUser = (local) => {
   };
 };
 
-const updateStats = (id) => {
+const updateStats = (user) => {
   return async (dispatch) => {
-    const user = await userService.getById(id);
+    console.log("tääl", user);
     dispatch(setUser(user));
   };
 };

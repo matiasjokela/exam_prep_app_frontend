@@ -35,6 +35,7 @@ const GamePage = ({ questions, length }) => {
   // Tarviiko käyttää statea näihin kaikkiin vai normi muuttujia??
 
   console.log("oikea: ", questions[index].answer);
+  console.log("vastaus: ", answer);
 
   const handleSelect = (selected) => {
     if (selected === "A") {

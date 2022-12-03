@@ -16,9 +16,9 @@ const StatsPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   console.log("user", user);
-  useEffect(() => {
-    dispatch(updateStats(user.id));
-  }, []); //////
+  //   useEffect(() => {
+  //     dispatch(updateStats(user.id));
+  //   }, []); //////
 
   if (user && best === "Ei pelejä") {
     if (user.physicsTotal) {
@@ -42,20 +42,20 @@ const StatsPage = () => {
 
   const handleZero = () => {
     if (user && window.confirm("Haluatko varmasti poistaa kaikki tilastot")) {
-      userService.update(
-        {
-          physicsCorrect: 0,
-          physicsTotal: 0,
-          chemistryCorrect: 0,
-          chemistryTotal: 0,
-          biologyCorrect: 0,
-          biologyTotal: 0,
-          bestCorrect: 0,
-          bestTotal: 0,
-          bestCategory: "",
-        },
-        user.id
-      );
+      const updatedUser = {
+        ...user,
+        physicsCorrect: 0,
+        physicsTotal: 0,
+        chemistryCorrect: 0,
+        chemistryTotal: 0,
+        biologyCorrect: 0,
+        biologyTotal: 0,
+        bestCorrect: 0,
+        bestTotal: 0,
+        bestCategory: "",
+      };
+      userService.update(updatedUser, user.id);
+      dispatch(updateStats(updatedUser));
       setPhysics("Ei pelejä");
       setChemistry("Ei pelejä");
       setBiology("Ei pelejä");

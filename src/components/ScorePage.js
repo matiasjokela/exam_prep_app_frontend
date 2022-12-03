@@ -5,15 +5,14 @@ import { useEffect } from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
 import { useSelector, useDispatch } from "react-redux";
+import { updateStats } from "../reducers/userReducer";
 
 const ScorePage = ({ correct, total, category }) => {
   const [ok, setOk] = useState(0);
   const [text, setText] = useState("Taidat tarvita vielä reilusti treeniä");
-  let updatedFields;
-
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
-  console.log("täs");
+  let updatedUser;
 
   useEffect(() => {
     if (correct / total === 1) {
@@ -29,66 +28,79 @@ const ScorePage = ({ correct, total, category }) => {
     } else if (correct / total >= 0.4) {
       setText("Tuloksessa on parantamisen varaa, jatka treenejä!");
     }
+    console.log("täs");
+    updateUser();
   }, []);
 
-  if (category === "fysiikka" && user) {
-    if (
-      !user.bestTotal ||
-      correct / total >= user.bestCorrect / user.bestTotal
-    ) {
-      updatedFields = {
-        physicsCorrect: user.physicsCorrect + correct,
-        physicsTotal: user.physicsTotal + total,
-        bestCorrect: correct,
-        bestTotal: total,
-        bestCategory: "fysiikka",
-      };
-    } else {
-      updatedFields = {
-        physicsCorrect: user.physicsCorrect + correct,
-        physicsTotal: user.physicsTotal + total,
-      };
+  const updateUser = () => {
+    if (category === "fysiikka" && user) {
+      if (
+        !user.bestTotal ||
+        correct / total >= user.bestCorrect / user.bestTotal
+      ) {
+        updatedUser = {
+          ...user,
+          physicsCorrect: user.physicsCorrect + correct,
+          physicsTotal: user.physicsTotal + total,
+          bestCorrect: correct,
+          bestTotal: total,
+          bestCategory: "fysiikka",
+        };
+      } else {
+        updatedUser = {
+          ...user,
+          physicsCorrect: user.physicsCorrect + correct,
+          physicsTotal: user.physicsTotal + total,
+        };
+      }
+      userService.update(updatedUser, user.id);
+      dispatch(updateStats(updatedUser));
+    } else if (category === "kemia" && user) {
+      if (
+        !user.bestTotal ||
+        correct / total >= user.bestCorrect / user.bestTotal
+      ) {
+        updatedUser = {
+          ...user,
+          chemistryCorrect: user.chemistryCorrect + correct,
+          chemistryTotal: user.chemistryTotal + total,
+          bestCorrect: correct,
+          bestTotal: total,
+          bestCategory: "kemia",
+        };
+      } else {
+        updatedUser = {
+          ...user,
+          chemistryCorrect: user.chemistryCorrect + correct,
+          chemistryTotal: user.chemistryTotal + total,
+        };
+      }
+      userService.update(updatedUser, user.id);
+      dispatch(updateStats(updatedUser));
+    } else if (category === "biologia" && user) {
+      if (
+        !user.bestTotal ||
+        correct / total >= user.bestCorrect / user.bestTotal
+      ) {
+        updatedUser = {
+          ...user,
+          biologyCorrect: user.biologyCorrect + correct,
+          biologyTotal: user.biologyTotal + total,
+          bestCorrect: correct,
+          bestTotal: total,
+          bestCategory: "biologia",
+        };
+      } else {
+        updatedUser = {
+          ...user,
+          biologyCorrect: user.biologyCorrect + correct,
+          biologyTotal: user.biologyTotal + total,
+        };
+      }
+      userService.update(updatedUser, user.id);
+      dispatch(updateStats(updatedUser));
     }
-    userService.update(updatedFields, user.id);
-  } else if (category === "kemia" && user) {
-    if (
-      !user.bestTotal ||
-      correct / total >= user.bestCorrect / user.bestTotal
-    ) {
-      updatedFields = {
-        chemistryCorrect: user.chemistryCorrect + correct,
-        chemistryTotal: user.chemistryTotal + total,
-        bestCorrect: correct,
-        bestTotal: total,
-        bestCategory: "kemia",
-      };
-    } else {
-      updatedFields = {
-        chemistryCorrect: user.chemistryCorrect + correct,
-        chemistryTotal: user.chemistryTotal + total,
-      };
-    }
-    userService.update(updatedFields, user.id);
-  } else if (category === "biologia" && user) {
-    if (
-      !user.bestTotal ||
-      correct / total >= user.bestCorrect / user.bestTotal
-    ) {
-      updatedFields = {
-        biologyCorrect: user.biologyCorrect + correct,
-        biologyTotal: user.biologyTotal + total,
-        bestCorrect: correct,
-        bestTotal: total,
-        bestCategory: "biologia",
-      };
-    } else {
-      updatedFields = {
-        biologyCorrect: user.biologyCorrect + correct,
-        biologyTotal: user.biologyTotal + total,
-      };
-    }
-    userService.update(updatedFields, user.id);
-  }
+  };
 
   if (ok === 1) {
     return <LandingPage />;
