@@ -19,12 +19,20 @@ import {
   updateLength,
   updateIndex,
 } from "../reducers/gameReducer";
+import { useLocation } from "react-router-dom";
+import {
+  Link,
+  Routes,
+  Route,
+  useMatch,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 
 const GamePage = () => {
   const defaultStyle = "outline-dark";
   const correctStyle = "success";
   const incorrectStyle = "danger";
-  //const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answer, setAnswer] = useState(null);
   const [message, setMessage] = useState(null);
@@ -33,22 +41,19 @@ const GamePage = () => {
   const [styleB, setStyleB] = useState(defaultStyle);
   const [styleC, setStyleC] = useState(defaultStyle);
   const [styleD, setStyleD] = useState(defaultStyle);
-  const questions = useSelector((state) => state.game.questions);
-  const length = useSelector((state) => state.game.length);
-  const index = useSelector((state) => state.game.index);
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { questions, length, index } = location.state;
+
+  console.log(questions, length, index);
+
+  console.log("Peli", questions, length);
 
   let len;
 
   questions.length < length ? (len = questions.length) : (len = length);
 
   // Tarviiko käyttää statea näihin kaikkiin vai normi muuttujia??
-
-  useEffect(() => {
-    dispatch(updateLength(length));
-    dispatch(updateQuestions(questions));
-    console.log("täs", questions, length, index);
-  }, [questions, length, index]);
 
   console.log("oikea: ", questions[index].answer);
   console.log("vastaus: ", answer);
@@ -107,7 +112,14 @@ const GamePage = () => {
         resetStyles();
         setMessage(null);
         setMessageStyle("");
-        dispatch(updateIndex(index + 1));
+        setAnswer(null);
+        navigate("/game", {
+          state: {
+            questions: questions,
+            length: length,
+            index: index + 1,
+          },
+        });
       }, 3000);
     } else {
       updateIncorrect();
@@ -117,10 +129,16 @@ const GamePage = () => {
         resetStyles();
         setMessage(null);
         setMessageStyle("");
-        dispatch(updateIndex(index + 1));
+        setAnswer(null);
+        navigate("/game", {
+          state: {
+            questions: questions,
+            length: length,
+            index: index + 1,
+          },
+        });
       }, 3000);
     }
-    setAnswer(null);
   };
 
   if (index === len) {

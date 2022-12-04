@@ -77,7 +77,13 @@ const LandingPage = () => {
     console.log("lol");
     dispatch(updateLength(questionCount));
     dispatch(updateQuestions(shuffledQuestions));
-    navigate("/game");
+    navigate("/game", {
+      state: {
+        questions: shuffledQuestions,
+        length: questionCount,
+        index: 0,
+      },
+    });
   };
 
   const handleLogout = () => {
