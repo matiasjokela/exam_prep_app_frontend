@@ -6,6 +6,14 @@ import LandingPage from "./LandingPage";
 import userService from "../services/user";
 import { useSelector, useDispatch } from "react-redux";
 import { updateStats } from "../reducers/userReducer";
+import {
+  Link,
+  Routes,
+  Route,
+  useMatch,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 
 const StatsPage = () => {
   const [view, setView] = useState("Stats");
@@ -15,6 +23,7 @@ const StatsPage = () => {
   const [best, setBest] = useState("Ei pelejä");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   console.log("user", user);
   //   useEffect(() => {
   //     dispatch(updateStats(user.id));
@@ -78,7 +87,7 @@ const StatsPage = () => {
             <Button
               variant="outline-dark"
               size="sm"
-              onClick={() => setView("Landing")}
+              onClick={() => navigate("/")}
             >
               Takaisin
             </Button>

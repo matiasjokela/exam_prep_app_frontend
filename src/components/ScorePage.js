@@ -6,12 +6,21 @@ import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
 import { useSelector, useDispatch } from "react-redux";
 import { updateStats } from "../reducers/userReducer";
+import {
+  Link,
+  Routes,
+  Route,
+  useMatch,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 
 const ScorePage = ({ correct, total, category }) => {
   const [ok, setOk] = useState(0);
   const [text, setText] = useState("Taidat tarvita vielä reilusti treeniä");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   let updatedUser;
 
   useEffect(() => {
@@ -125,7 +134,7 @@ const ScorePage = ({ correct, total, category }) => {
           <Button
             className="mb-3 mx-auto w-100"
             variant="outline-dark"
-            onClick={() => setOk(1)}
+            onClick={() => navigate("/")}
           >
             OK
           </Button>

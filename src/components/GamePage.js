@@ -13,12 +13,18 @@ import {
   ToggleButtonGroup,
 } from "react-bootstrap";
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateQuestions,
+  updateLength,
+  updateIndex,
+} from "../reducers/gameReducer";
 
-const GamePage = ({ questions, length }) => {
+const GamePage = () => {
   const defaultStyle = "outline-dark";
   const correctStyle = "success";
   const incorrectStyle = "danger";
-  const [index, setIndex] = useState(0);
+  //const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answer, setAnswer] = useState(null);
   const [message, setMessage] = useState(null);
@@ -27,12 +33,22 @@ const GamePage = ({ questions, length }) => {
   const [styleB, setStyleB] = useState(defaultStyle);
   const [styleC, setStyleC] = useState(defaultStyle);
   const [styleD, setStyleD] = useState(defaultStyle);
+  const questions = useSelector((state) => state.game.questions);
+  const length = useSelector((state) => state.game.length);
+  const index = useSelector((state) => state.game.index);
+  const dispatch = useDispatch();
 
   let len;
 
   questions.length < length ? (len = questions.length) : (len = length);
 
   // Tarviiko käyttää statea näihin kaikkiin vai normi muuttujia??
+
+  useEffect(() => {
+    dispatch(updateLength(length));
+    dispatch(updateQuestions(questions));
+    console.log("täs", questions, length, index);
+  }, [questions, length, index]);
 
   console.log("oikea: ", questions[index].answer);
   console.log("vastaus: ", answer);
@@ -80,7 +96,8 @@ const GamePage = ({ questions, length }) => {
     setStyleD(defaultStyle);
   };
 
-  const checkAnswer = () => {
+  const checkAnswer = async () => {
+    console.log("here here");
     updateCorrect();
     if (answer === questions[index].answer) {
       setCorrect(correct + 1);
@@ -90,7 +107,7 @@ const GamePage = ({ questions, length }) => {
         resetStyles();
         setMessage(null);
         setMessageStyle("");
-        setIndex(index + 1);
+        dispatch(updateIndex(index + 1));
       }, 3000);
     } else {
       updateIncorrect();
@@ -100,7 +117,7 @@ const GamePage = ({ questions, length }) => {
         resetStyles();
         setMessage(null);
         setMessageStyle("");
-        setIndex(index + 1);
+        dispatch(updateIndex(index + 1));
       }, 3000);
     }
     setAnswer(null);

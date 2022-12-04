@@ -15,18 +15,37 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
-import { Link, Routes, Route, useMatch, Navigate } from "react-router-dom";
+import {
+  Link,
+  Routes,
+  Route,
+  useMatch,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
+import { checkUser } from "../reducers/userReducer";
+import {
+  updateQuestions,
+  updateLength,
+  updateIndex,
+} from "../reducers/gameReducer";
 
 const LandingPage = () => {
   const [questions, setQuestions] = useState([]);
   const [view, setView] = useState("Landing");
   const [category, setCategory] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
   }, []);
+
+  //<Navigate replace={true} to="/login />"
 
   console.log("user", user);
   const handleSelect = (selected) => {
@@ -46,7 +65,7 @@ const LandingPage = () => {
   // 	setCategoryStyles([defaultStyle, defaultStyle, selectedStyle])
   // }
 
-  if (view === "Game") {
+  const toGameView = async () => {
     let filteredQuestions = questions.filter((question) =>
       question.category.includes(category)
     );
@@ -55,26 +74,27 @@ const LandingPage = () => {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
     console.log(shuffledQuestions);
-    return <GamePage questions={shuffledQuestions} length={questionCount} />;
-  } else if (view === "Login") {
-    return <LoginPage />;
-  } else if (view === "Stats") {
-    return <StatsPage />;
-  }
+    console.log("lol");
+    dispatch(updateLength(questionCount));
+    dispatch(updateQuestions(shuffledQuestions));
+    navigate("/game");
+  };
 
   const handleLogout = () => {
     window.localStorage.removeItem("loggedExamPrepUser");
-    setView("Login");
+    navigate("/login");
+    window.location.reload(false);
   };
 
   const handleDelete = () => {
     if (window.confirm("Haluatko varmasti poistaa käyttäjätilisi?")) {
       window.localStorage.removeItem("loggedExamPrepUser");
       userService.deleteUser(user.id);
-      setView("Login");
+      navigate("/login");
+      window.location.reload(false);
     }
   };
-
+  //{user ? user.username : <Navigate replace={true} to="/login" />}
   return (
     <Container style={{ width: "22rem" }}>
       <Card className="card_view shadow">
@@ -87,7 +107,7 @@ const LandingPage = () => {
             >
               {user ? user.username : <Navigate replace={true} to="/login" />}
               <Dropdown.Menu variant="dark">
-                <Dropdown.Item onClick={() => setView("Stats")}>
+                <Dropdown.Item onClick={() => navigate("/stats")}>
                   Tilastot
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => handleLogout()}>
@@ -169,7 +189,7 @@ const LandingPage = () => {
             className="d-grid gap-2 mx-auto w-100"
             variant="dark"
             disabled={!questionCount || !category}
-            onClick={() => setView("Game")}
+            onClick={() => toGameView()}
           >
             Pelaa
           </Button>

@@ -22,7 +22,6 @@ const checkUser = (local) => {
 
 const updateStats = (user) => {
   return async (dispatch) => {
-    console.log("tääl", user);
     dispatch(setUser(user));
   };
 };

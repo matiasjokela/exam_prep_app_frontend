@@ -24,7 +24,6 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/stats" element={<StatsPage />} />
         <Route path="/game" element={<GamePage />} />
-        <Route path="/score" element={<ScorePage />} />
       </Routes>
     </div>
     //<div>{!user ? <LoginPage /> : <LandingPage />}</div>
