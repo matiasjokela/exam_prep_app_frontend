@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
-//import Button from "./Button";
-//import ButtonList from "./ButtonList";
-import GamePage from "./GamePage";
 import questionService from "../services/questions";
 import userService from "../services/user";
-import LoginPage from "./LoginPage";
-import StatsPage from "./StatsPage";
-import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   ToggleButton,
@@ -15,39 +9,34 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
-import {
-  Link,
-  Routes,
-  Route,
-  useMatch,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
-import { checkUser } from "../reducers/userReducer";
-import {
-  updateQuestions,
-  updateLength,
-  updateIndex,
-} from "../reducers/gameReducer";
+import { useNavigate, Navigate, useLocation } from "react-router-dom";
 
 const LandingPage = () => {
   const [questions, setQuestions] = useState([]);
-  const [view, setView] = useState("Landing");
   const [category, setCategory] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
-  const dispatch = useDispatch();
-
+  const location = useLocation();
   const navigate = useNavigate();
+  let user;
 
-  const user = useSelector((state) => state.user);
+  console.log("landing");
+  try {
+    user = location.state.user;
+  } catch (e) {
+    console.log("herja: ", e);
+  }
+
+  console.log("landing user", user);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
   }, []);
 
-  //<Navigate replace={true} to="/login />"
-
-  console.log("user", user);
   const handleSelect = (selected) => {
     if (selected === "fysiikka") {
       setCategory("fysiikka");
@@ -57,13 +46,6 @@ const LandingPage = () => {
       setCategory("kemia");
     }
   };
-  // if (category === 'matematiikka') {
-  // 	setCategoryStyles([selectedStyle, defaultStyle, defaultStyle])
-  // } else if (category === 'englanti') {
-  // 	setCategoryStyles([defaultStyle, selectedStyle, defaultStyle])
-  // } else if (category === 'biologia') {
-  // 	setCategoryStyles([defaultStyle, defaultStyle, selectedStyle])
-  // }
 
   const toGameView = async () => {
     let filteredQuestions = questions.filter((question) =>
@@ -74,14 +56,12 @@ const LandingPage = () => {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
     console.log(shuffledQuestions);
-    console.log("lol");
-    dispatch(updateLength(questionCount));
-    dispatch(updateQuestions(shuffledQuestions));
     navigate("/game", {
       state: {
         questions: shuffledQuestions,
         length: questionCount,
         index: 0,
+        correct: 0,
       },
     });
   };
@@ -100,7 +80,6 @@ const LandingPage = () => {
       window.location.reload(false);
     }
   };
-  //{user ? user.username : <Navigate replace={true} to="/login" />}
   return (
     <Container style={{ width: "22rem" }}>
       <Card className="card_view shadow">
@@ -139,7 +118,7 @@ const LandingPage = () => {
             <ToggleButton
               value={10}
               variant="outline-dark"
-              onClick={() => setQuestionCount(10)}
+              onClick={() => setQuestionCount(2)}
             >
               10
             </ToggleButton>
@@ -206,18 +185,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-/*            <DropdownButton
-              className="card_view"
-              title={user.user.username}
-              variant="outline-dark"
-              menuVariant="dark"
-              size="sm"
-            >
-              <Dropdown.Item onClick={() => handleLogout()}>
-                Kirjaudu ulos
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleDelete()}>
-                Poista tilini
-              </Dropdown.Item>
-            </DropdownButton>*/

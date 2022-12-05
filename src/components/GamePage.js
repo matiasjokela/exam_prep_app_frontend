@@ -1,39 +1,17 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Card";
-//import Button from "./Button";
-//import Notification from "./Notification";
 import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import ScorePage from "./ScorePage";
-import {
-  ButtonGroup,
-  Container,
-  ToggleButton,
-  ToggleButtonGroup,
-} from "react-bootstrap";
+import { Container, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  updateQuestions,
-  updateLength,
-  updateIndex,
-} from "../reducers/gameReducer";
 import { useLocation } from "react-router-dom";
-import {
-  Link,
-  Routes,
-  Route,
-  useMatch,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const GamePage = () => {
   const defaultStyle = "outline-dark";
   const correctStyle = "success";
   const incorrectStyle = "danger";
-  const [correct, setCorrect] = useState(0);
   const [answer, setAnswer] = useState(null);
   const [message, setMessage] = useState(null);
   const [messageStyle, setMessageStyle] = useState("");
@@ -41,22 +19,38 @@ const GamePage = () => {
   const [styleB, setStyleB] = useState(defaultStyle);
   const [styleC, setStyleC] = useState(defaultStyle);
   const [styleD, setStyleD] = useState(defaultStyle);
+  let questions;
+  let length;
+  let correct = 0;
+  let index = 0;
+  let len = 0;
+  let category = "error";
   const location = useLocation();
   const navigate = useNavigate();
-  const { questions, length, index } = location.state;
 
-  console.log(questions, length, index);
+  try {
+    questions = location.state.questions;
+    length = location.state.length;
+    index = location.state.index;
+    category = questions[0].category;
+    correct = location.state.correct;
+  } catch (e) {
+    console.log("GamePage herja: ", e);
+  }
 
-  console.log("Peli", questions, length);
+  useEffect(() => {
+    if (!questions || !length) {
+      navigate("/login");
+    }
+  }, [questions, length, navigate]);
 
-  let len;
-
-  questions.length < length ? (len = questions.length) : (len = length);
-
-  // Tarviiko käyttää statea näihin kaikkiin vai normi muuttujia??
-
-  console.log("oikea: ", questions[index].answer);
-  console.log("vastaus: ", answer);
+  if (questions && length) {
+    questions.length < length ? (len = questions.length) : (len = length);
+  }
+  if (questions) {
+    console.log("oikea  : ", questions[index].answer);
+    console.log("vastaus: ", answer);
+  }
 
   const handleSelect = (selected) => {
     if (selected === "A") {
@@ -102,10 +96,8 @@ const GamePage = () => {
   };
 
   const checkAnswer = async () => {
-    console.log("here here");
     updateCorrect();
     if (answer === questions[index].answer) {
-      setCorrect(correct + 1);
       setMessageStyle("success");
       setMessage("Oikea vastaus!");
       setTimeout(() => {
@@ -118,6 +110,7 @@ const GamePage = () => {
             questions: questions,
             length: length,
             index: index + 1,
+            correct: correct + 1,
           },
         });
       }, 3000);
@@ -135,6 +128,7 @@ const GamePage = () => {
             questions: questions,
             length: length,
             index: index + 1,
+            correct: correct,
           },
         });
       }, 3000);
@@ -142,13 +136,7 @@ const GamePage = () => {
   };
 
   if (index === len) {
-    return (
-      <ScorePage
-        correct={correct}
-        total={len}
-        category={questions[0].category}
-      />
-    );
+    return <ScorePage correct={correct} total={len} category={category} />;
   }
   return (
     <Container className="p-sm-3 p-0 game_view">

@@ -16,9 +16,7 @@ import ScorePage from "./components/ScorePage";
 // Biologia 2020 syksy viimeisin lisätty
 
 const App = () => {
-  console.log("app");
   return (
-    //kommentti
     <div>
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -27,7 +25,6 @@ const App = () => {
         <Route path="/game" element={<GamePage />} />
       </Routes>
     </div>
-    //<div>{!user ? <LoginPage /> : <LandingPage />}</div>
   );
 };
 

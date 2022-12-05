@@ -6,22 +6,16 @@ import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
 import { useSelector, useDispatch } from "react-redux";
 import { updateStats } from "../reducers/userReducer";
-import {
-  Link,
-  Routes,
-  Route,
-  useMatch,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ScorePage = ({ correct, total, category }) => {
-  const [ok, setOk] = useState(0);
   const [text, setText] = useState("Taidat tarvita vielä reilusti treeniä");
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [updatedUser, setUpdatedUser] = useState(null);
   const navigate = useNavigate();
-  let updatedUser;
+  let tmpUser;
 
   useEffect(() => {
     if (correct / total === 1) {
@@ -37,17 +31,12 @@ const ScorePage = ({ correct, total, category }) => {
     } else if (correct / total >= 0.4) {
       setText("Tuloksessa on parantamisen varaa, jatka treenejä!");
     }
-    console.log("täs");
-    updateUser();
-  }, []);
-
-  const updateUser = () => {
     if (category === "fysiikka" && user) {
       if (
         !user.bestTotal ||
         correct / total >= user.bestCorrect / user.bestTotal
       ) {
-        updatedUser = {
+        tmpUser = {
           ...user,
           physicsCorrect: user.physicsCorrect + correct,
           physicsTotal: user.physicsTotal + total,
@@ -56,20 +45,21 @@ const ScorePage = ({ correct, total, category }) => {
           bestCategory: "fysiikka",
         };
       } else {
-        updatedUser = {
+        tmpUser = {
           ...user,
           physicsCorrect: user.physicsCorrect + correct,
           physicsTotal: user.physicsTotal + total,
         };
       }
-      userService.update(updatedUser, user.id);
-      dispatch(updateStats(updatedUser));
+      userService.update(tmpUser, user.id);
+      setUpdatedUser(tmpUser);
+      dispatch(updateStats(tmpUser));
     } else if (category === "kemia" && user) {
       if (
         !user.bestTotal ||
         correct / total >= user.bestCorrect / user.bestTotal
       ) {
-        updatedUser = {
+        tmpUser = {
           ...user,
           chemistryCorrect: user.chemistryCorrect + correct,
           chemistryTotal: user.chemistryTotal + total,
@@ -78,20 +68,21 @@ const ScorePage = ({ correct, total, category }) => {
           bestCategory: "kemia",
         };
       } else {
-        updatedUser = {
+        tmpUser = {
           ...user,
           chemistryCorrect: user.chemistryCorrect + correct,
           chemistryTotal: user.chemistryTotal + total,
         };
       }
-      userService.update(updatedUser, user.id);
-      dispatch(updateStats(updatedUser));
+      userService.update(tmpUser, user.id);
+      setUpdatedUser(tmpUser);
+      dispatch(updateStats(tmpUser));
     } else if (category === "biologia" && user) {
       if (
         !user.bestTotal ||
         correct / total >= user.bestCorrect / user.bestTotal
       ) {
-        updatedUser = {
+        tmpUser = {
           ...user,
           biologyCorrect: user.biologyCorrect + correct,
           biologyTotal: user.biologyTotal + total,
@@ -100,20 +91,17 @@ const ScorePage = ({ correct, total, category }) => {
           bestCategory: "biologia",
         };
       } else {
-        updatedUser = {
+        tmpUser = {
           ...user,
           biologyCorrect: user.biologyCorrect + correct,
           biologyTotal: user.biologyTotal + total,
         };
       }
-      userService.update(updatedUser, user.id);
-      dispatch(updateStats(updatedUser));
+      userService.update(tmpUser, user.id);
+      setUpdatedUser(tmpUser);
+      dispatch(updateStats(tmpUser));
     }
-  };
-
-  if (ok === 1) {
-    return <LandingPage />;
-  }
+  }, [category, correct, total]);
 
   return (
     <Container style={{ width: "22rem" }}>
@@ -134,7 +122,13 @@ const ScorePage = ({ correct, total, category }) => {
           <Button
             className="mb-3 mx-auto w-100"
             variant="outline-dark"
-            onClick={() => navigate("/")}
+            onClick={() =>
+              navigate("/", {
+                state: {
+                  user: updatedUser,
+                },
+              })
+            }
           >
             OK
           </Button>
