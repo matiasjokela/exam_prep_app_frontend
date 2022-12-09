@@ -1,5 +1,3 @@
-import LandingPage from "./LandingPage";
-//import Button from './Button'
 import { useState } from "react";
 import { useEffect } from "react";
 import { Card, Button, Container } from "react-bootstrap";
@@ -8,14 +6,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateStats } from "../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 
-const ScorePage = ({ correct, total, category }) => {
+const ScorePage = ({ correct, total, category, user }) => {
   const [text, setText] = useState("Taidat tarvita vielä reilusti treeniä");
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
   const [updatedUser, setUpdatedUser] = useState(null);
   const navigate = useNavigate();
   let tmpUser;
+
+  console.log("score", correct, total, category, user);
 
   useEffect(() => {
     if (correct / total === 1) {

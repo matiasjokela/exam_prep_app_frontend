@@ -62,6 +62,7 @@ const LandingPage = () => {
         length: questionCount,
         index: 0,
         correct: 0,
+        user: user,
       },
     });
   };
@@ -118,7 +119,7 @@ const LandingPage = () => {
             <ToggleButton
               value={10}
               variant="outline-dark"
-              onClick={() => setQuestionCount(2)}
+              onClick={() => setQuestionCount(10)}
             >
               10
             </ToggleButton>

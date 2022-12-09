@@ -25,6 +25,7 @@ const GamePage = () => {
   let index = 0;
   let len = 0;
   let category = "error";
+  let user = null;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ const GamePage = () => {
     index = location.state.index;
     category = questions[0].category;
     correct = location.state.correct;
+    user = location.state.user;
   } catch (e) {
     console.log("GamePage herja: ", e);
   }
@@ -50,6 +52,7 @@ const GamePage = () => {
   if (questions) {
     console.log("oikea  : ", questions[index].answer);
     console.log("vastaus: ", answer);
+    console.log("user: ", user);
   }
 
   const handleSelect = (selected) => {
@@ -111,6 +114,7 @@ const GamePage = () => {
             length: length,
             index: index + 1,
             correct: correct + 1,
+            user: user,
           },
         });
       }, 3000);
@@ -129,6 +133,7 @@ const GamePage = () => {
             length: length,
             index: index + 1,
             correct: correct,
+            user: user,
           },
         });
       }, 3000);
@@ -136,7 +141,14 @@ const GamePage = () => {
   };
 
   if (index === len) {
-    return <ScorePage correct={correct} total={len} category={category} />;
+    return (
+      <ScorePage
+        correct={correct}
+        total={len}
+        category={category}
+        user={user}
+      />
+    );
   }
   return (
     <Container className="p-sm-3 p-0 game_view">
