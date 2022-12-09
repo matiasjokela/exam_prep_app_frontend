@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import userService from "../services/user";
 import { useSelector, useDispatch } from "react-redux";
 import { updateStats } from "../reducers/userReducer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const StatsPage = () => {
   const [physics, setPhysics] = useState("Ei pelejä");
@@ -13,27 +13,45 @@ const StatsPage = () => {
   const [biology, setBiology] = useState("Ei pelejä");
   const [best, setBest] = useState("Ei pelejä");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const [updatedUser, setUpdatedUser] = useState(user);
+  const location = useLocation();
+  let user = null;
+
   const navigate = useNavigate();
 
-  if (user && best === "Ei pelejä") {
-    if (user.physicsTotal) {
-      setPhysics(`${user.physicsCorrect} / ${user.physicsTotal} (
-			${Math.round((user.physicsCorrect / user.physicsTotal) * 100)} %)`);
+  try {
+    user = location.state.user.user;
+  } catch (e) {
+    console.log("StatsPage herja: ", e);
+  }
+  const [updatedUser, setUpdatedUser] = useState(user);
+
+  console.log("user stats", user);
+
+  if (updatedUser && best === "Ei pelejä") {
+    if (updatedUser.physicsTotal) {
+      setPhysics(`${updatedUser.physicsCorrect} / ${updatedUser.physicsTotal} (
+			${Math.round(
+        (updatedUser.physicsCorrect / updatedUser.physicsTotal) * 100
+      )} %)`);
     }
-    if (user.chemistryTotal) {
-      setChemistry(`${user.chemistryCorrect} / ${user.chemistryTotal} (
-			  ${Math.round((user.chemistryCorrect / user.chemistryTotal) * 100)} %)`);
+    if (updatedUser.chemistryTotal) {
+      setChemistry(`${updatedUser.chemistryCorrect} / ${
+        updatedUser.chemistryTotal
+      } (
+			  ${Math.round(
+          (updatedUser.chemistryCorrect / updatedUser.chemistryTotal) * 100
+        )} %)`);
     }
-    if (user.biologyTotal) {
-      setBiology(`${user.biologyCorrect} / ${user.biologyTotal} (
-			  ${Math.round((user.biologyCorrect / user.biologyTotal) * 100)} %)`);
+    if (updatedUser.biologyTotal) {
+      setBiology(`${updatedUser.biologyCorrect} / ${updatedUser.biologyTotal} (
+			  ${Math.round(
+          (updatedUser.biologyCorrect / updatedUser.biologyTotal) * 100
+        )} %)`);
     }
-    if (user.bestTotal) {
-      setBest(`${user.bestCorrect} / ${user.bestTotal} (
-			${Math.round((user.bestCorrect / user.bestTotal) * 100)} %, 
-			${user.bestCategory})`);
+    if (updatedUser.bestTotal) {
+      setBest(`${updatedUser.bestCorrect} / ${updatedUser.bestTotal} (
+			${Math.round((updatedUser.bestCorrect / updatedUser.bestTotal) * 100)} %, 
+			${updatedUser.bestCategory})`);
     }
   }
 

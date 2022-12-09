@@ -93,7 +93,15 @@ const LandingPage = () => {
             >
               {user ? user.username : <Navigate replace={true} to="/login" />}
               <Dropdown.Menu variant="dark">
-                <Dropdown.Item onClick={() => navigate("/stats")}>
+                <Dropdown.Item
+                  onClick={() =>
+                    navigate("/stats", {
+                      state: {
+                        user: { user },
+                      },
+                    })
+                  }
+                >
                   Tilastot
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => handleLogout()}>
