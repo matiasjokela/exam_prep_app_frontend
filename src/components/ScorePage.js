@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateStats } from "../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 
