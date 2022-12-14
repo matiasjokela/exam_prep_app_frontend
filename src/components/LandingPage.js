@@ -97,7 +97,7 @@ const LandingPage = () => {
                   onClick={() =>
                     navigate("/stats", {
                       state: {
-                        user: { user },
+                        user: user,
                       },
                     })
                   }

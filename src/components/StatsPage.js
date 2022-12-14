@@ -19,10 +19,12 @@ const StatsPage = () => {
   const navigate = useNavigate();
 
   try {
-    user = location.state.user.user;
+    user = location.state.user;
   } catch (e) {
     console.log("StatsPage herja: ", e);
   }
+  console.log("user", user);
+  console.log("state", location.state);
   const [updatedUser, setUpdatedUser] = useState(user);
   useEffect(() => {
     if (!user) {
@@ -77,6 +79,12 @@ const StatsPage = () => {
       userService.update(tmpUser, user.id);
       dispatch(updateStats(tmpUser));
       setUpdatedUser(tmpUser);
+      navigate("/stats", {
+        state: {
+          user: tmpUser,
+        },
+        replace: true,
+      });
       setPhysics("Ei pelejä");
       setChemistry("Ei pelejä");
       setBiology("Ei pelejä");

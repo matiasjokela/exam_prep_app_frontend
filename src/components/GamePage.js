@@ -116,6 +116,7 @@ const GamePage = () => {
             correct: correct + 1,
             user: user,
           },
+          replace: true,
         });
       }, 3000);
     } else {
@@ -135,6 +136,7 @@ const GamePage = () => {
             correct: correct,
             user: user,
           },
+          replace: true,
         });
       }, 3000);
     }
