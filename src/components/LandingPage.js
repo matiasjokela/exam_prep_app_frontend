@@ -10,8 +10,6 @@ import {
   Button,
 } from "react-bootstrap";
 import { useNavigate, Navigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { updateStats } from "../reducers/userReducer";
 
 const LandingPage = () => {
   const [questions, setQuestions] = useState([]);

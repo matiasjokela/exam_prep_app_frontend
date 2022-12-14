@@ -28,7 +28,7 @@ const LoginPage = () => {
       const token = local.token;
       dispatch(checkUser({ token }));
     }
-  }, []);
+  }, [dispatch, local]);
 
   useEffect(() => {
     if (validUser) {
