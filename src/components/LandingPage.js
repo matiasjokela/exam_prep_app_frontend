@@ -10,6 +10,8 @@ import {
   Button,
 } from "react-bootstrap";
 import { useNavigate, Navigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateStats } from "../reducers/userReducer";
 
 const LandingPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -19,7 +21,6 @@ const LandingPage = () => {
   const navigate = useNavigate();
   let user;
 
-  console.log("landing");
   try {
     user = location.state.user;
   } catch (e) {
@@ -99,6 +100,7 @@ const LandingPage = () => {
                       state: {
                         user: user,
                       },
+                      replace: true,
                     })
                   }
                 >

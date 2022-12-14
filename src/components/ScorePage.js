@@ -126,6 +126,7 @@ const ScorePage = ({ correct, total, category, user }) => {
                 state: {
                   user: updatedUser,
                 },
+                replace: true,
               })
             }
           >
