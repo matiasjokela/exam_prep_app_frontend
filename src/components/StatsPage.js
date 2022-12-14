@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -24,6 +24,11 @@ const StatsPage = () => {
     console.log("StatsPage herja: ", e);
   }
   const [updatedUser, setUpdatedUser] = useState(user);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   console.log("user stats", user);
 
