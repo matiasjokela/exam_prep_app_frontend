@@ -2,19 +2,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
-import { useDispatch } from "react-redux";
-import { updateStats } from "../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 
 const ScorePage = ({ correct, total, category, user }) => {
   const [text, setText] = useState("Taidat tarvita vielä reilusti treeniä");
 
-  const dispatch = useDispatch();
   const [updatedUser, setUpdatedUser] = useState(null);
   const navigate = useNavigate();
   let tmpUser;
-
-  console.log("score", correct, total, category, user);
 
   useEffect(() => {
     if (correct / total === 1) {
@@ -52,7 +47,6 @@ const ScorePage = ({ correct, total, category, user }) => {
       }
       userService.update(tmpUser, user.id);
       setUpdatedUser(tmpUser);
-      dispatch(updateStats(tmpUser));
     } else if (category === "kemia" && user) {
       if (
         !user.bestTotal ||
@@ -75,7 +69,6 @@ const ScorePage = ({ correct, total, category, user }) => {
       }
       userService.update(tmpUser, user.id);
       setUpdatedUser(tmpUser);
-      dispatch(updateStats(tmpUser));
     } else if (category === "biologia" && user) {
       if (
         !user.bestTotal ||
@@ -98,7 +91,6 @@ const ScorePage = ({ correct, total, category, user }) => {
       }
       userService.update(tmpUser, user.id);
       setUpdatedUser(tmpUser);
-      dispatch(updateStats(tmpUser));
     }
   }, [category, correct, total]);
 

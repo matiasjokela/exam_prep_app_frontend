@@ -37,7 +37,7 @@ const GamePage = () => {
     correct = location.state.correct;
     user = location.state.user;
   } catch (e) {
-    console.log("GamePage herja: ", e);
+    console.log(e);
   }
 
   useEffect(() => {
@@ -48,9 +48,6 @@ const GamePage = () => {
 
   if (questions && length) {
     questions.length < length ? (len = questions.length) : (len = length);
-  }
-  if (questions) {
-    console.log("oikea  : ", questions[index].answer);
   }
 
   const handleSelect = (selected) => {

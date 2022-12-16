@@ -3,8 +3,6 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import userService from "../services/user";
-import { useDispatch } from "react-redux";
-import { updateStats } from "../reducers/userReducer";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const StatsPage = () => {
@@ -12,7 +10,6 @@ const StatsPage = () => {
   const [chemistry, setChemistry] = useState("Ei pelejä");
   const [biology, setBiology] = useState("Ei pelejä");
   const [best, setBest] = useState("Ei pelejä");
-  const dispatch = useDispatch();
   const location = useLocation();
   let user = null;
 
@@ -21,23 +18,26 @@ const StatsPage = () => {
   try {
     user = location.state.user;
   } catch (e) {
-    console.log("StatsPage herja: ", e);
+    console.log(e);
   }
 
-  const [updatedUser, setUpdatedUser] = useState(user);
+  const [updatedUser, setUpdatedUser] = useState(null);
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
   }, [user, navigate]);
 
-  useEffect(() => {
-    userService
-      .getById(user.id)
-      .then((returnedUser) => setUpdatedUser(returnedUser));
-  }, []);
+  console.log("stats");
 
-  console.log("täs", updatedUser);
+  useEffect(() => {
+    if (user) {
+      userService
+        .getById(user.id)
+        .then((returnedUser) => setUpdatedUser(returnedUser));
+    }
+  }, [user]);
+
   if (updatedUser && best === "Ei pelejä") {
     if (updatedUser.physicsTotal) {
       setPhysics(`${updatedUser.physicsCorrect} / ${updatedUser.physicsTotal} (
@@ -80,22 +80,12 @@ const StatsPage = () => {
         bestTotal: 0,
         bestCategory: "",
       };
-      userService.update(tmpUser, user.id);
-      dispatch(updateStats(tmpUser));
-      setUpdatedUser(tmpUser);
-      navigate("/stats", {
-        state: {
-          user: tmpUser,
-        },
-        replace: true,
-      });
-      setPhysics("Ei pelejä");
-      setChemistry("Ei pelejä");
-      setBiology("Ei pelejä");
-      setBest("Ei pelejä");
+      userService
+        .update(tmpUser, user.id)
+        .then((returnedUser) => setUpdatedUser(returnedUser));
+      window.location.reload(false);
     }
   };
-  //
 
   return (
     <Container className="mb-4" style={{ width: "22rem" }}>

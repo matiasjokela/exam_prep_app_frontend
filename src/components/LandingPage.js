@@ -22,7 +22,7 @@ const LandingPage = () => {
   try {
     user = location.state.user;
   } catch (e) {
-    console.log("herja: ", e);
+    console.log(e);
   }
 
   useEffect(() => {
@@ -53,7 +53,6 @@ const LandingPage = () => {
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
-    console.log(shuffledQuestions);
     navigate("/game", {
       state: {
         questions: shuffledQuestions,
@@ -97,7 +96,6 @@ const LandingPage = () => {
                       state: {
                         user: user,
                       },
-                      replace: true,
                     })
                   }
                 >
