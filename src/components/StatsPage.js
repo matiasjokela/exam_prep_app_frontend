@@ -23,8 +23,7 @@ const StatsPage = () => {
   } catch (e) {
     console.log("StatsPage herja: ", e);
   }
-  console.log("user", user);
-  console.log("state", location.state);
+
   const [updatedUser, setUpdatedUser] = useState(user);
   useEffect(() => {
     if (!user) {
@@ -32,8 +31,13 @@ const StatsPage = () => {
     }
   }, [user, navigate]);
 
-  console.log("user stats", user);
+  useEffect(() => {
+    userService
+      .getById(user.id)
+      .then((returnedUser) => setUpdatedUser(returnedUser));
+  }, []);
 
+  console.log("täs", updatedUser);
   if (updatedUser && best === "Ei pelejä") {
     if (updatedUser.physicsTotal) {
       setPhysics(`${updatedUser.physicsCorrect} / ${updatedUser.physicsTotal} (

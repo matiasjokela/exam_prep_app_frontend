@@ -25,7 +25,6 @@ const LandingPage = () => {
     console.log("herja: ", e);
   }
 
-  console.log("landing user", user);
   useEffect(() => {
     if (!user) {
       navigate("/login");

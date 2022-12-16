@@ -51,8 +51,6 @@ const GamePage = () => {
   }
   if (questions) {
     console.log("oikea  : ", questions[index].answer);
-    console.log("vastaus: ", answer);
-    console.log("user: ", user);
   }
 
   const handleSelect = (selected) => {
