@@ -28,8 +28,6 @@ const StatsPage = () => {
     }
   }, [user, navigate]);
 
-  console.log("stats");
-
   useEffect(() => {
     if (user) {
       userService

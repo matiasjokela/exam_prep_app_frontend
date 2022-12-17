@@ -1,12 +1,10 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScorePage from "./ScorePage";
 import { Container, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const GamePage = () => {
   const defaultStyle = "outline-dark";

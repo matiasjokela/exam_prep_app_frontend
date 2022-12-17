@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import userService from "../services/user";
 import { useNavigate } from "react-router-dom";
