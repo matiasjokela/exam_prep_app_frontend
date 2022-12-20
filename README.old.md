@@ -1,1 +1,0 @@
-# exam_prep_app_frontend
