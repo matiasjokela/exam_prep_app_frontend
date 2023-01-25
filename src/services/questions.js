@@ -7,4 +7,10 @@ const getAll = async () => {
   return questions;
 };
 
-export default { getAll };
+const addQuestion = async (question) => {
+  const response = await axios.get(baseUrl);
+  const questions = response.data.map((q) => q);
+  return questions;
+};
+
+export default { getAll, addQuestion };

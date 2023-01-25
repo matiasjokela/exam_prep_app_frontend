@@ -101,6 +101,22 @@ const LandingPage = () => {
                 >
                   Tilastot
                 </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() =>
+                    navigate("/questions", {
+                      state: {
+                        user: user,
+                      },
+                    })
+                  }
+                  style={
+                    user && user.isAdmin
+                      ? { display: "block" }
+                      : { display: "none" }
+                  }
+                >
+                  Kysymykset
+                </Dropdown.Item>
                 <Dropdown.Item onClick={() => handleLogout()}>
                   Kirjaudu ulos
                 </Dropdown.Item>
