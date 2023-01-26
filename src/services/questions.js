@@ -8,7 +8,7 @@ const getAll = async () => {
 };
 
 const addQuestion = async (question) => {
-  const response = await axios.get(baseUrl);
+  const response = await axios.post(baseUrl, question);
   const questions = response.data.map((q) => q);
   return questions;
 };

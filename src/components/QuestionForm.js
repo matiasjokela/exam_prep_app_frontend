@@ -6,68 +6,8 @@ import { Button } from "react-bootstrap";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import questionService from "../services/questions";
-import QuestionForm from "./QuestionForm";
 
-const QuestionsPage = () => {
-  const [questions, setQuestions] = useState([]);
-  const [category, setCategory] = useState("");
-  const location = useLocation();
-  let user = null;
-
-  const navigate = useNavigate();
-
-  try {
-    user = location.state.user;
-  } catch (e) {
-    console.log(e);
-  }
-
-  const [updatedUser, setUpdatedUser] = useState(null);
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
-    questionService.getAll().then((questions) => setQuestions(questions));
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      userService
-        .getById(user.id)
-        .then((returnedUser) => setUpdatedUser(returnedUser));
-    }
-  }, [user]);
-
-  console.log("user at /questions", user);
-  console.log("questions at /questions", questions);
-  console.log("type", typeof user.id);
-
-  return (
-    <>
-      <h1>hello world</h1>
-      <QuestionForm />;
-    </>
-  );
-};
-
-export default QuestionsPage;
-
-/* 
-
-import userService from "../services/user";
-import { useState } from "react";
-import { Form } from "react-bootstrap";
-import { Container, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import questionService from "../services/questions";
-import QuestionForm from "./QuestionForm";
-
-const QuestionsPage = () => {
+const QuestionForm = () => {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState("");
   const [option_a, setOption_a] = useState("");
@@ -80,8 +20,6 @@ const QuestionsPage = () => {
   const location = useLocation();
   let user = null;
 
-  const navigate = useNavigate();
-
   try {
     user = location.state.user;
   } catch (e) {
@@ -89,15 +27,6 @@ const QuestionsPage = () => {
   }
 
   const [updatedUser, setUpdatedUser] = useState(null);
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
-    questionService.getAll().then((questions) => setQuestions(questions));
-  }, []);
 
   useEffect(() => {
     if (user) {
@@ -117,7 +46,8 @@ const QuestionsPage = () => {
   };
 
   console.log("category", category);
-return (
+
+  return (
     <Container
       id="add_question"
       className="mb-3 shadow rounded p-sm-4 col-sm-6"
@@ -230,6 +160,7 @@ return (
         </Button>
       </Form>
     </Container>
-	 );
+  );
+};
 
-*/
+export default QuestionForm;
