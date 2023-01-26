@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import questionService from "../services/questions";
 import QuestionForm from "./QuestionForm";
+import QuestionList from "./QuestionList";
 
 const QuestionsPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -48,7 +49,7 @@ const QuestionsPage = () => {
   return (
     <>
       <h1>hello world</h1>
-      <QuestionForm />;
+      <QuestionList questions={questions} />;
     </>
   );
 };
