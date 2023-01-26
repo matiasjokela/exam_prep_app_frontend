@@ -17,10 +17,7 @@ const QuestionList = ({ questions }) => {
   };
 
   return (
-    <Container
-      id="question_list"
-      className="mb-3 shadow rounded p-sm-4 col-sm-6"
-    >
+    <Container id="question_list">
       <ListGroup style={{ maxHeight: "580px", overflowY: "scroll" }}>
         {questions.map((question) => (
           <QuestionItem question={question} />

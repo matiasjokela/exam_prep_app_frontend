@@ -30,6 +30,7 @@ const QuestionsPage = () => {
     }
   }, [user, navigate]);
 
+  // console.log("user at QuestonsPage", user);
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
   }, []);
@@ -42,15 +43,24 @@ const QuestionsPage = () => {
     }
   }, [user]);
 
-  console.log("user at /questions", user);
-  console.log("questions at /questions", questions);
-  console.log("type", typeof user.id);
+  let filteredQuestions = questions.filter(
+    (question) =>
+      question && question.userId && question.userId.includes(user.id)
+  );
+
+  //console.log("user at /questions", user);
+  //console.log("questions at /questions", questions);
+  //console.log("type", typeof user.id);
 
   return (
-    <>
+    <Container
+      id="questions_page"
+      className="mb-3 shadow rounded p-sm-4 col-sm-6"
+    >
       <h1>hello world</h1>
-      <QuestionList questions={questions} />;
-    </>
+      <QuestionList questions={filteredQuestions} />
+      <QuestionForm />
+    </Container>
   );
 };
 

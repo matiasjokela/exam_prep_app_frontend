@@ -8,7 +8,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import questionService from "../services/questions";
 
 const QuestionForm = () => {
-  const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState("");
   const [option_a, setOption_a] = useState("");
   const [option_b, setOption_b] = useState("");
@@ -36,22 +35,35 @@ const QuestionForm = () => {
     }
   }, [user]);
 
-  console.log("user at /questions", user);
-  console.log("questions at /questions", questions);
-  console.log("type", typeof user.id);
-
   const handleAddQuestion = async (event) => {
     event.preventDefault();
-    console.log("Lisää kyssäri");
+    if (correctOption === "A") {
+      setAnswer(option_a);
+    } else if (correctOption === "B") {
+      setAnswer(option_b);
+    } else if (correctOption === "C") {
+      setAnswer(option_c);
+    } else if (correctOption === "D") {
+      setAnswer(option_d);
+    }
+    const newQuestion = {
+      question: question,
+      option_a: option_a,
+      option_b: option_b,
+      option_c: option_c,
+      option_d: option_d,
+      answer: answer,
+      category: category,
+      userId: user.id,
+    };
+    const addedQuestion = await questionService.addQuestion(newQuestion);
+    console.log("Lisätty", addedQuestion);
   };
 
   console.log("category", category);
 
   return (
-    <Container
-      id="add_question"
-      className="mb-3 shadow rounded p-sm-4 col-sm-6"
-    >
+    <Container id="add_question">
       <Form onSubmit={handleAddQuestion}>
         <Form.Group className="mb-3">
           <Form.Label>

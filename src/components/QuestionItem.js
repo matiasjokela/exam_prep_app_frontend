@@ -61,6 +61,19 @@ const MoreInfo = ({ question }) => {
       >
         D: {question.option_d}
       </ListGroup.Item>
+      <ListGroup.Item
+        key={question.category}
+        className="mb-2 "
+        style={{
+          color: textColor,
+          backgroundColor: bg,
+          borderRadius: "10px",
+          border: "1px solid gray",
+          fontSize: "14px",
+        }}
+      >
+        Kategoria: {question.category}
+      </ListGroup.Item>
       <Button variant="dark" onClick={() => handleDelete(question)}>
         Poista kysymys
       </Button>

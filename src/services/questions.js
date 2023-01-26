@@ -9,8 +9,9 @@ const getAll = async () => {
 
 const addQuestion = async (question) => {
   const response = await axios.post(baseUrl, question);
-  const questions = response.data.map((q) => q);
-  return questions;
+  console.log("response here:", response);
+  const addedQuestion = response.data;
+  return addedQuestion;
 };
 
 export default { getAll, addQuestion };
