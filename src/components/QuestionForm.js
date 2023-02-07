@@ -1,10 +1,8 @@
-import userService from "../services/user";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
-import { Container, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import questionService from "../services/questions";
 
 const QuestionForm = () => {
@@ -13,8 +11,7 @@ const QuestionForm = () => {
   const [option_b, setOption_b] = useState("");
   const [option_c, setOption_c] = useState("");
   const [option_d, setOption_d] = useState("");
-  //const [correctOption, setCorrectOption] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [correctOption, setCorrectOption] = useState("");
   const [category, setCategory] = useState("");
   const location = useLocation();
   let user = null;
@@ -25,41 +22,47 @@ const QuestionForm = () => {
     console.log(e);
   }
 
-  const [updatedUser, setUpdatedUser] = useState(null);
-
-  useEffect(() => {
-    if (user) {
-      userService
-        .getById(user.id)
-        .then((returnedUser) => setUpdatedUser(returnedUser));
+  const checkDuplicates = (answers) => {
+    for (let i = 0; i < answers.length - 1; i++) {
+      if (answers.includes(answers[i], i + 1)) {
+        return true;
+      }
     }
-  }, [user]);
+    return false;
+  };
 
-  const setCorrectAnswer = (correctOption) => {
+  const getCorrectAnswer = () => {
     if (correctOption === "A") {
-      setAnswer(option_a);
+      return option_a;
     } else if (correctOption === "B") {
-      setAnswer(option_b);
+      return option_b;
     } else if (correctOption === "C") {
-      setAnswer(option_c);
+      return option_c;
     } else if (correctOption === "D") {
-      setAnswer(option_d);
+      return option_d;
     }
   };
 
   const handleAddQuestion = async (event) => {
     event.preventDefault();
-    const newQuestion = {
-      question: question,
-      option_a: option_a,
-      option_b: option_b,
-      option_c: option_c,
-      option_d: option_d,
-      answer: answer,
-      category: category,
-      userId: user.id,
-    };
-    await questionService.addQuestion(newQuestion);
+    const correctAnswer = getCorrectAnswer();
+    if (checkDuplicates([option_a, option_b, option_c, option_d])) {
+      window.confirm(
+        "Kysymystä ei lisätty, vastausvaihtoehtojen tulee olla uniikkeja"
+      );
+    } else {
+      const newQuestion = {
+        question: question,
+        option_a: option_a,
+        option_b: option_b,
+        option_c: option_c,
+        option_d: option_d,
+        answer: correctAnswer,
+        category: category,
+        userId: user.id,
+      };
+      await questionService.addQuestion(newQuestion);
+    }
     window.location.reload(false);
   };
 
@@ -131,8 +134,9 @@ const QuestionForm = () => {
               as="select"
               onChange={(e) => setCategory(e.target.value)}
               className="mb-3"
+              defaultValue=""
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Valitse kategoria
               </option>
               <option value="fysiikka">Fysiikka</option>
@@ -141,10 +145,11 @@ const QuestionForm = () => {
             </Form.Control>
             <Form.Control
               as="select"
-              onChange={(e) => setCorrectAnswer(e.target.value)}
+              onChange={(e) => setCorrectOption(e.target.value)}
               className="mb-3"
+              defaultValue=""
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Valitse oikea vastaus
               </option>
               <option value="A">Vaihtoehto A</option>
@@ -166,7 +171,7 @@ const QuestionForm = () => {
             !option_b ||
             !option_c ||
             !option_d ||
-            !answer
+            !correctOption
           }
         >
           Lisää kysymys

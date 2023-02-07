@@ -1,27 +1,33 @@
-import userService from "../services/user";
-import { useState } from "react";
-import { Form } from "react-bootstrap";
-import { Container, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import questionService from "../services/questions";
+import { Container } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
 import QuestionItem from "./QuestionItem";
 
+const bg = "#F3EBDD";
+const textColor = "#2A2922";
+
 const QuestionList = ({ questions }) => {
-  const [updatedUser, setUpdatedUser] = useState(null);
-
-  const handleDelete = () => {
-    console.log("pois kysymys");
-  };
-
   return (
     <Container id="question_list">
       <ListGroup style={{ maxHeight: "580px", overflowY: "scroll" }}>
-        {questions.map((question) => (
-          <QuestionItem question={question} />
-        ))}
+        {questions.length ? (
+          questions.map((question) => (
+            <QuestionItem key={question.id} question={question} />
+          ))
+        ) : (
+          <ListGroup.Item
+            key="no-questions"
+            className="mt-2"
+            style={{
+              color: textColor,
+              backgroundColor: bg,
+              borderRadius: "10px",
+              border: "1px solid gray",
+              fontSize: "14px",
+            }}
+          >
+            Et ole vielä lisännyt kysymyksiä
+          </ListGroup.Item>
+        )}
       </ListGroup>
     </Container>
   );

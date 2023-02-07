@@ -48,7 +48,6 @@ const LoginPage = () => {
         password,
       });
       window.localStorage.setItem("loggedExamPrepUser", JSON.stringify(user));
-      console.log("login:", user);
       setUsername("");
       setPassword("");
     } catch (exception) {
@@ -70,7 +69,6 @@ const LoginPage = () => {
           username,
           password,
         });
-        console.log("login:", user);
         window.localStorage.setItem("loggedExamPrepUser", JSON.stringify(user));
         setUsername("");
         setPassword("");

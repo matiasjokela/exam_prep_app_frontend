@@ -4,6 +4,7 @@ import questionService from "../services/questions";
 
 const bg = "#F3EBDD";
 const textColor = "#2A2922";
+const correct = "#7CAA2D";
 
 const MoreInfo = ({ question }) => {
   const handleDelete = () => {
@@ -24,7 +25,7 @@ const MoreInfo = ({ question }) => {
         className="mt-2"
         style={{
           color: textColor,
-          backgroundColor: bg,
+          backgroundColor: question.option_a === question.answer ? correct : bg,
           borderRadius: "10px",
           border: "1px solid gray",
           fontSize: "14px",
@@ -36,7 +37,7 @@ const MoreInfo = ({ question }) => {
         key={question.option_b}
         style={{
           color: textColor,
-          backgroundColor: bg,
+          backgroundColor: question.option_b === question.answer ? correct : bg,
           borderRadius: "10px",
           border: "1px solid gray",
           fontSize: "14px",
@@ -48,7 +49,7 @@ const MoreInfo = ({ question }) => {
         key={question.option_c}
         style={{
           color: textColor,
-          backgroundColor: bg,
+          backgroundColor: question.option_c === question.answer ? correct : bg,
           borderRadius: "10px",
           border: "1px solid gray",
           fontSize: "14px",
@@ -61,7 +62,7 @@ const MoreInfo = ({ question }) => {
         className="mb-2 "
         style={{
           color: textColor,
-          backgroundColor: bg,
+          backgroundColor: question.option_d === question.answer ? correct : bg,
           borderRadius: "10px",
           border: "1px solid gray",
           fontSize: "14px",

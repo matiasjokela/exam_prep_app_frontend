@@ -64,6 +64,23 @@ const LandingPage = () => {
     });
   };
 
+  const makeAdmin = async () => {
+    const updatedUser = {
+      ...user,
+      isAdmin: true,
+    };
+    const returnedUser = await userService.update(updatedUser, user.id);
+    if (returnedUser && returnedUser.isAdmin) {
+      window.confirm("Onneksi olkoon, sinulla on nyt admin-oikeudet!");
+    }
+    navigate("/", {
+      state: {
+        user: returnedUser,
+      },
+      replace: true,
+    });
+  };
+
   const handleLogout = () => {
     window.localStorage.removeItem("loggedExamPrepUser");
     navigate("/login");
@@ -92,17 +109,6 @@ const LandingPage = () => {
               <Dropdown.Menu variant="dark">
                 <Dropdown.Item
                   onClick={() =>
-                    navigate("/stats", {
-                      state: {
-                        user: user,
-                      },
-                    })
-                  }
-                >
-                  Tilastot
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() =>
                     navigate("/questions", {
                       state: {
                         user: user,
@@ -117,6 +123,28 @@ const LandingPage = () => {
                 >
                   Kysymykset
                 </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={makeAdmin}
+                  style={
+                    user && !user.isAdmin
+                      ? { display: "block" }
+                      : { display: "none" }
+                  }
+                >
+                  Pyydä admin-oikeudet
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() =>
+                    navigate("/stats", {
+                      state: {
+                        user: user,
+                      },
+                    })
+                  }
+                >
+                  Tilastot
+                </Dropdown.Item>
+
                 <Dropdown.Item onClick={() => handleLogout()}>
                   Kirjaudu ulos
                 </Dropdown.Item>

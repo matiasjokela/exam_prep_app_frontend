@@ -1,7 +1,6 @@
-import userService from "../services/user";
 import { useState } from "react";
-import { ButtonGroup, Form } from "react-bootstrap";
-import { Container, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -25,25 +24,15 @@ const QuestionsPage = () => {
     console.log(e);
   }
 
-  const [updatedUser, setUpdatedUser] = useState(null);
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
   }, [user, navigate]);
 
-  // console.log("user at QuestonsPage", user);
   useEffect(() => {
     questionService.getAll().then((questions) => setQuestions(questions));
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      userService
-        .getById(user.id)
-        .then((returnedUser) => setUpdatedUser(returnedUser));
-    }
-  }, [user]);
 
   let filteredQuestions = questions.filter(
     (question) =>
