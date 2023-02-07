@@ -1,6 +1,6 @@
 import userService from "../services/user";
 import { useState } from "react";
-import { Form } from "react-bootstrap";
+import { ButtonGroup, Form } from "react-bootstrap";
 import { Container, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useEffect } from "react";
@@ -11,7 +11,9 @@ import QuestionList from "./QuestionList";
 
 const QuestionsPage = () => {
   const [questions, setQuestions] = useState([]);
-  const [category, setCategory] = useState("");
+  const [view, setView] = useState("list");
+  const [title, setTitle] = useState("Kysymyksesi:");
+  const [viewButtonText, setviewButtonText] = useState("Lisää kysymys");
   const location = useLocation();
   let user = null;
 
@@ -48,18 +50,58 @@ const QuestionsPage = () => {
       question && question.userId && question.userId.includes(user.id)
   );
 
-  //console.log("user at /questions", user);
-  //console.log("questions at /questions", questions);
-  //console.log("type", typeof user.id);
+  const toggleView = () => {
+    if (view === "list") {
+      setView("form");
+      setTitle("Lisää kysymys");
+      setviewButtonText("Kysymyslistaan");
+    } else {
+      setView("list");
+      setTitle("Kysymyksesi:");
+      setviewButtonText("Lisää kysymys");
+    }
+    view === "list" ? setView("form") : setView("list");
+  };
 
   return (
     <Container
       id="questions_page"
       className="mb-3 shadow rounded p-sm-4 col-sm-6"
     >
-      <h1>hello world</h1>
-      <QuestionList questions={filteredQuestions} />
-      <QuestionForm />
+      <Container className="mb-3">
+        <ButtonGroup>
+          <Button
+            variant="outline-dark"
+            className="mb-3"
+            style={{ width: "130px" }}
+            onClick={() =>
+              navigate("/", {
+                state: {
+                  user: user,
+                },
+              })
+            }
+          >
+            Takaisin
+          </Button>
+          <Button
+            variant="outline-dark"
+            className="mb-3"
+            style={{ width: "130px" }}
+            onClick={toggleView}
+          >
+            {viewButtonText}
+          </Button>
+        </ButtonGroup>
+
+        <h2>{title}</h2>
+      </Container>
+
+      {view === "list" ? (
+        <QuestionList questions={filteredQuestions} />
+      ) : (
+        <QuestionForm />
+      )}
     </Container>
   );
 };

@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { Button, ListGroup } from "react-bootstrap";
+import questionService from "../services/questions";
 
 const bg = "#F3EBDD";
 const textColor = "#2A2922";
 
 const MoreInfo = ({ question }) => {
   const handleDelete = () => {
-    console.log("pois kysymys", question);
+    if (
+      window.confirm(
+        `Haluatko varmasti poistaa kysymyksen ${question.question}`
+      )
+    ) {
+      questionService.deleteQuestion(question.id);
+      window.location.reload(false);
+    }
   };
 
   return (

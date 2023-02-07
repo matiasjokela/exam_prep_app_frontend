@@ -13,7 +13,7 @@ const QuestionForm = () => {
   const [option_b, setOption_b] = useState("");
   const [option_c, setOption_c] = useState("");
   const [option_d, setOption_d] = useState("");
-  const [correctOption, setCorrectOption] = useState("");
+  //const [correctOption, setCorrectOption] = useState("");
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("");
   const location = useLocation();
@@ -35,8 +35,7 @@ const QuestionForm = () => {
     }
   }, [user]);
 
-  const handleAddQuestion = async (event) => {
-    event.preventDefault();
+  const setCorrectAnswer = (correctOption) => {
     if (correctOption === "A") {
       setAnswer(option_a);
     } else if (correctOption === "B") {
@@ -46,6 +45,10 @@ const QuestionForm = () => {
     } else if (correctOption === "D") {
       setAnswer(option_d);
     }
+  };
+
+  const handleAddQuestion = async (event) => {
+    event.preventDefault();
     const newQuestion = {
       question: question,
       option_a: option_a,
@@ -56,11 +59,9 @@ const QuestionForm = () => {
       category: category,
       userId: user.id,
     };
-    const addedQuestion = await questionService.addQuestion(newQuestion);
-    console.log("Lisätty", addedQuestion);
+    await questionService.addQuestion(newQuestion);
+    window.location.reload(false);
   };
-
-  console.log("category", category);
 
   return (
     <Container id="add_question">
@@ -140,7 +141,7 @@ const QuestionForm = () => {
             </Form.Control>
             <Form.Control
               as="select"
-              onChange={(e) => setCorrectOption(e.target.value)}
+              onChange={(e) => setCorrectAnswer(e.target.value)}
               className="mb-3"
             >
               <option value="" disabled selected>
@@ -165,7 +166,7 @@ const QuestionForm = () => {
             !option_b ||
             !option_c ||
             !option_d ||
-            !correctOption
+            !answer
           }
         >
           Lisää kysymys

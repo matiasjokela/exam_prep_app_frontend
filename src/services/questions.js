@@ -14,4 +14,10 @@ const addQuestion = async (question) => {
   return addedQuestion;
 };
 
-export default { getAll, addQuestion };
+const deleteQuestion = async (id) => {
+  const url = baseUrl.concat("/", id);
+  const response = await axios.delete(url);
+  return response.data;
+};
+
+export default { getAll, addQuestion, deleteQuestion };
